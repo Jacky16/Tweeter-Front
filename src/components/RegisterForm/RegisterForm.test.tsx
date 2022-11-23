@@ -1,5 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { renderWithProviders } from "../../mocks/renderWithProviders";
 import { RegisterForm } from "./RegisterForm";
 
 describe("Given the Register form component", () => {
@@ -12,7 +13,7 @@ describe("Given the Register form component", () => {
 
       const nameButton = "Sign up";
 
-      render(<RegisterForm />);
+      renderWithProviders(<RegisterForm />);
 
       const buttonSignUp = screen.getByRole("button", {
         name: nameButton,
