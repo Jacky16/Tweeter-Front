@@ -1,5 +1,4 @@
-import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import { screen } from "@testing-library/react";
 import { renderWithProviders } from "../../mocks/renderWithProviders";
 import { RegisterForm } from "./RegisterForm";
 
