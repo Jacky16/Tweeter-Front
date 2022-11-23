@@ -1,7 +1,8 @@
 // src/mocks/handlers.js
 import { rest } from "msw";
 import requestsUrl from "../config/requestsUrl";
-import { UserRegisterData } from "../types";
+import { UserLoginData, UserRegisterData } from "../types";
+import { mockTokenMario } from "./userMocks";
 
 export const handlers = [
   rest.post(requestsUrl.registerUser, async (req, res, ctx) => {
@@ -15,5 +16,15 @@ export const handlers = [
     }
 
     return res(ctx.status(201), ctx.json({}));
+  }),
+
+  rest.post(requestsUrl.loginUser, async (req, res, ctx) => {
+    const user = await req.json<UserLoginData>();
+
+    if (user.email !== "mario@gmail.com" || user.password !== "123") {
+      return res(ctx.status(409), ctx.json({ error: "Invalid credential" }));
+    }
+
+    return res(ctx.status(200), ctx.json({ token: mockTokenMario }));
   }),
 ];
