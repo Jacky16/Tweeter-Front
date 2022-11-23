@@ -1,11 +1,8 @@
 import { renderHook } from "@testing-library/react";
 import ProviderWrapper from "../../mocks/providerWrapper";
 import { store } from "../../redux/store";
-import { UserState } from "../../redux/types";
 import { UserLoginData, UserRegisterData } from "../../types";
-import decodeToken from "../../utils/decodeToken";
 import useUser from "./useUser";
-import jwtDecode from "jwt-decode";
 
 const dispatch = jest.spyOn(store, "dispatch");
 
