@@ -1,11 +1,37 @@
 import { TextField, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
+import React from "react";
+import useUser from "../../hooks/useUser/useUser";
+import { UserRegisterData } from "../../types";
 import { FormAuth } from "../FormAuth/FormAuth";
 import PrimaryButton from "../PrimaryButton/PrimaryButton";
 
 export const RegisterForm = () => {
+  const { registerUser } = useUser();
+
+  const [registerData, setRegisterData] = React.useState<UserRegisterData>({
+    username: "",
+    password: "",
+    alias: "",
+    email: "",
+  });
+
+  const dataRegister = (event: React.ChangeEvent<HTMLInputElement>) => {
+    event.preventDefault();
+
+    setRegisterData({
+      ...registerData,
+      [event.target.name]: event.target.value,
+    });
+  };
+
   return (
-    <FormAuth title={"Register"} handleSubmit={() => {}}>
+    <FormAuth
+      title={"Register"}
+      handleSubmit={() => {
+        registerUser(registerData);
+      }}
+    >
       <Stack spacing={1}>
         <TextField
           name="username"
@@ -14,6 +40,8 @@ export const RegisterForm = () => {
           fullWidth
           label="Username"
           aria-label="username"
+          onChange={dataRegister}
+          required
         />
         <TextField
           name="alias"
@@ -23,6 +51,8 @@ export const RegisterForm = () => {
           fullWidth
           label="Alias"
           aria-label="alias"
+          onChange={dataRegister}
+          required
         />
         <TextField
           name="email"
@@ -32,14 +62,18 @@ export const RegisterForm = () => {
           fullWidth
           label="Email"
           aria-label="email"
+          onChange={dataRegister}
+          required
         />
         <TextField
           name="password"
           margin="normal"
-          type="text"
+          type="password"
           fullWidth
           label="Password"
           aria-label="password"
+          onChange={dataRegister}
+          required
         />
       </Stack>
       <PrimaryButton>
