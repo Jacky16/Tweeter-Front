@@ -9,11 +9,12 @@ const useToken = () => {
 
   const getToken = useCallback(() => {
     const token = localStorage.getItem("token");
-    if (token) {
-      const user: JwtPayloadCustom = decodeToken(token);
-
-      dispatch(userLoginActionCreator({ ...user, token, isLogged: true }));
+    if (!token) {
+      return;
     }
+    const user: JwtPayloadCustom = decodeToken(token);
+
+    dispatch(userLoginActionCreator({ ...user, token, isLogged: true }));
   }, [dispatch]);
 
   const removeToken = () => {

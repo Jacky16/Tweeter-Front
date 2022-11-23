@@ -48,8 +48,23 @@ describe("Given a useToken custom hook", () => {
       );
     });
   });
-});
+  describe("When its method getToken is invoked and there isn't the token  in local storage", () => {
+    test("Then it shoud not call dispatch", () => {
+      const {
+        result: {
+          current: { getToken },
+        },
+      } = renderHook(() => useToken(), {
+        wrapper: ProviderWrapper,
+      });
 
+      mockLocalStorage.removeItem("token");
+      getToken();
+
+      expect(dispatchSpy).not.toHaveBeenCalled();
+    });
+  });
+});
 describe("When its method removeToken is invoked and there is the token 'abc' in local storage", () => {
   test("Then the token should be removed from local storage", () => {
     const {
