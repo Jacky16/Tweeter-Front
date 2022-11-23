@@ -1,3 +1,9 @@
+import { User } from "../types";
+
+export interface UserState extends User {
+  isLogged: boolean;
+  token: string;
+}
 export interface UiState {
   alert: AlertActionProps;
 }
