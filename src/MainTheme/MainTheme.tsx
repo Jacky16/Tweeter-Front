@@ -1,6 +1,7 @@
 import { createTheme } from "@mui/material";
 export const MainTheme = createTheme({
   palette: {
+    mode: "dark",
     primary: {
       main: "#1090F2",
     },
@@ -11,11 +12,24 @@ export const MainTheme = createTheme({
     secondary: {
       main: "#111D35",
     },
+    text: {
+      primary: "#ffffff",
+    },
   },
+
   typography: {
     fontFamily: "Poppins",
   },
   shape: {
     borderRadius: 22,
+  },
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 600,
+      md: 900,
+      lg: 1200,
+      xl: 1536,
+    },
   },
 });
