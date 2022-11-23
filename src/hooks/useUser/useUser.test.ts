@@ -1,13 +1,16 @@
 import { renderHook } from "@testing-library/react";
 import ProviderWrapper from "../../mocks/providerWrapper";
 import { store } from "../../redux/store";
-import { UserRegisterData } from "../../types";
+import { UserState } from "../../redux/types";
+import { UserLoginData, UserRegisterData } from "../../types";
+import decodeToken from "../../utils/decodeToken";
 import useUser from "./useUser";
+import jwtDecode from "jwt-decode";
 
 const dispatch = jest.spyOn(store, "dispatch");
 
-describe("Given the useUser hook", () => {
-  describe("When it is invoked with method userRegister with username 'Mario' alias '@mario' password 123 and email 'mario@mario.com'", () => {
+describe("Given the registerUser method", () => {
+  describe("When it is invoked with username 'Mario' alias '@mario' password 123 and email 'mario@mario.com'", () => {
     test("Then it should be call the dispatch to open sucess alert", async () => {
       const {
         result: {
@@ -27,7 +30,6 @@ describe("Given the useUser hook", () => {
       expect(dispatch).toBeCalled();
     });
   });
-
   describe("When it is invoked with an user that exists", () => {
     test("Then it should call the dispatch", async () => {
       const {
@@ -46,6 +48,44 @@ describe("Given the useUser hook", () => {
       await registerUser(registerData);
 
       expect(dispatch).toBeCalled();
+    });
+  });
+});
+
+describe("Given the loginUser method", () => {
+  describe("When it's invoked  with email 'mario@gmail.com and password '123'", () => {
+    test("The dispatch should be called 2 times", async () => {
+      const {
+        result: {
+          current: { loginUser },
+        },
+      } = renderHook(() => useUser(), { wrapper: ProviderWrapper });
+      const loginData: UserLoginData = {
+        email: "mario@gmail.com",
+        password: "123",
+      };
+
+      await loginUser(loginData);
+
+      expect(dispatch).toBeCalledTimes(2);
+    });
+
+    describe("When it's invoked with a incorrect password", () => {
+      test("The dispatch shoud be called", async () => {
+        const {
+          result: {
+            current: { loginUser },
+          },
+        } = renderHook(() => useUser(), { wrapper: ProviderWrapper });
+        const loginData: UserLoginData = {
+          email: "gerad@baste.com",
+          password: "123",
+        };
+
+        await loginUser(loginData);
+
+        expect(dispatch).toBeCalled();
+      });
     });
   });
 });

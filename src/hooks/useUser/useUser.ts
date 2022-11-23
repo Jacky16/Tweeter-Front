@@ -11,18 +11,16 @@ const useUser = () => {
 
   const registerUser = async (userData: UserRegisterData) => {
     try {
-      const response = await axios.post(requestsUrl.registerUser, userData);
+      await axios.post(requestsUrl.registerUser, userData);
 
-      if (response.status === 201) {
-        dispatch(
-          openAlertActionCreator({
-            isOpen: true,
-            message: "Success Register",
-            severity: "success",
-            timeOpen: 3000,
-          })
-        );
-      }
+      dispatch(
+        openAlertActionCreator({
+          isOpen: true,
+          message: "Success Register",
+          severity: "success",
+          timeOpen: 3000,
+        })
+      );
     } catch (error: unknown) {
       dispatch(
         openAlertActionCreator({
