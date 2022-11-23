@@ -1,10 +1,20 @@
+import { Button } from "@mui/material";
 import { PropsWithChildren } from "react";
-import ButtonPrimaryStyled from "./PrimaryButtonStyled";
 
 interface PrimaryButtonProps extends PropsWithChildren {}
 
 const PrimaryButton = ({ children }: PrimaryButtonProps) => {
-  return <ButtonPrimaryStyled>{children}</ButtonPrimaryStyled>;
+  return (
+    <Button
+      fullWidth
+      color="primary"
+      sx={{ borderRadius: "4px" }}
+      variant="contained"
+      type="submit"
+    >
+      {children}
+    </Button>
+  );
 };
 
 export default PrimaryButton;
