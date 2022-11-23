@@ -6,8 +6,8 @@ interface FormAuthProps extends PropsWithChildren {
 }
 export const FormAuth = ({ children, title, handleSubmit }: FormAuthProps) => {
   return (
-    <Grid direction="column" alignItems="center" justifyContent="center">
-      <Grid item xs={4}>
+    <Grid alignItems="center" justifyContent="center">
+      <Grid item>
         <Paper sx={{ padding: "24px" }}>
           <Stack component="form" onSubmit={handleSubmit} spacing={4}>
             <Typography sx={{ mt: 1, mb: 1, textAlign: "center" }} variant="h2">

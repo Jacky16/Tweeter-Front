@@ -1,25 +1,19 @@
 import { TextField, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
-import React from "react";
 import { FormAuth } from "../FormAuth/FormAuth";
 import PrimaryButton from "../PrimaryButton/PrimaryButton";
 
 export const RegisterForm = () => {
   return (
-    <FormAuth
-      title={"Register"}
-      handleSubmit={function (): void {
-        throw new Error("Function not implemented.");
-      }}
-    >
+    <FormAuth title={"Register"} handleSubmit={() => {}}>
       <Stack spacing={1}>
         <TextField
-          name="alias"
+          name="username"
           margin="normal"
           type="text"
           fullWidth
           label="Username"
-          required
+          aria-label="username"
         />
         <TextField
           name="alias"
@@ -28,7 +22,7 @@ export const RegisterForm = () => {
           type="text"
           fullWidth
           label="Alias"
-          required
+          aria-label="alias"
         />
         <TextField
           name="email"
@@ -37,7 +31,7 @@ export const RegisterForm = () => {
           type="email"
           fullWidth
           label="Email"
-          required
+          aria-label="email"
         />
         <TextField
           name="password"
@@ -45,7 +39,7 @@ export const RegisterForm = () => {
           type="text"
           fullWidth
           label="Password"
-          required
+          aria-label="password"
         />
       </Stack>
       <PrimaryButton>
