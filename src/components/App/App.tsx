@@ -1,5 +1,12 @@
+import { Container } from "@mui/material";
+import { RegisterForm } from "../RegisterForm/RegisterForm";
+
 const App = () => {
-  return <h1>Hello world</h1>;
+  return (
+    <Container>
+      <RegisterForm />
+    </Container>
+  );
 };
 
 export default App;
