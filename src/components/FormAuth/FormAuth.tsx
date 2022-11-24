@@ -5,18 +5,15 @@ interface FormAuthProps extends PropsWithChildren {
   handleSubmit: () => void;
 }
 export const FormAuth = ({ children, title, handleSubmit }: FormAuthProps) => {
+  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    handleSubmit();
+  };
   return (
     <Grid alignItems="center" justifyContent="center">
       <Grid item>
         <Paper sx={{ padding: "24px" }}>
-          <Stack
-            component="form"
-            onSubmit={(event) => {
-              event.preventDefault();
-              handleSubmit();
-            }}
-            spacing={4}
-          >
+          <Stack component="form" onSubmit={onSubmit} spacing={4}>
             <Typography sx={{ mt: 1, mb: 1, textAlign: "center" }} variant="h2">
               {title}
             </Typography>
