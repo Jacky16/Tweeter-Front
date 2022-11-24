@@ -40,28 +40,29 @@ export const RegisterForm = () => {
           fullWidth
           label="Username"
           aria-label="username"
+          placeholder="@username"
           onChange={dataRegister}
           required
         />
         <TextField
           name="alias"
-          placeholder="@username"
           margin="normal"
           type="text"
           fullWidth
-          label="Alias"
+          label="Name"
           aria-label="alias"
+          placeholder="Full name"
           onChange={dataRegister}
           required
         />
         <TextField
           name="email"
-          placeholder="type your email"
           margin="normal"
           type="email"
           fullWidth
           label="Email"
           aria-label="email"
+          placeholder="Type your email"
           onChange={dataRegister}
           required
         />
@@ -72,6 +73,7 @@ export const RegisterForm = () => {
           fullWidth
           label="Password"
           aria-label="password"
+          placeholder="Type your password"
           onChange={dataRegister}
           required
         />
