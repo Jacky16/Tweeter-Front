@@ -1,10 +1,18 @@
-import { Stack, TextField, Typography } from "@mui/material";
+import {
+  InputAdornment,
+  Link,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
 import React from "react";
 import useUser from "../../hooks/useUser/useUser";
 import { UserLoginData } from "../../types";
 import { FormAuth } from "../FormAuth/FormAuth";
 import PrimaryButton from "../PrimaryButton/PrimaryButton";
-
+import LockIcon from "@mui/icons-material/Lock";
+import EmailIcon from "@mui/icons-material/Email";
+import { Link as RouterLink } from "react-router-dom";
 const LoginForm = () => {
   const { loginUser } = useUser();
 
@@ -23,7 +31,7 @@ const LoginForm = () => {
   };
   return (
     <FormAuth
-      title={"Login"}
+      title={"Sign in to Tweeter"}
       handleSubmit={() => {
         loginUser(loginData);
       }}
@@ -39,6 +47,13 @@ const LoginForm = () => {
           aria-label="email"
           onChange={dataRegister}
           required
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <EmailIcon />
+              </InputAdornment>
+            ),
+          }}
         />
         <TextField
           name="password"
@@ -50,10 +65,23 @@ const LoginForm = () => {
           placeholder="Type your password"
           onChange={dataRegister}
           required
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <LockIcon />
+              </InputAdornment>
+            ),
+          }}
         />
       </Stack>
+      <Typography variant="subtitle1">
+        Don't have account?{" "}
+        <Link component={RouterLink} to="/register">
+          Create an account now
+        </Link>
+      </Typography>
       <PrimaryButton>
-        <Typography fontWeight={700}>Login</Typography>
+        <Typography fontWeight={700}>Sign in</Typography>
       </PrimaryButton>
     </FormAuth>
   );

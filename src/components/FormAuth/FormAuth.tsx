@@ -17,9 +17,13 @@ export const FormAuth = ({ children, title, handleSubmit }: FormAuthProps) => {
       style={{ minHeight: "100vh" }}
     >
       <Grid item sx={{ width: "100%" }}>
-        <Paper sx={{ padding: "24px" }}>
+        <Paper sx={{ paddingY: "62px", paddingX: "52px" }}>
           <Stack component="form" onSubmit={onSubmit} spacing={4}>
-            <Typography sx={{ mt: 1, mb: 1, textAlign: "center" }} variant="h2">
+            <Typography
+              sx={{ textAlign: "center" }}
+              variant="h3"
+              fontWeight={700}
+            >
               {title}
             </Typography>
             {children}

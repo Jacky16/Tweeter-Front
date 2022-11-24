@@ -8,6 +8,7 @@ const PrimaryButton = ({ children }: PrimaryButtonProps) => {
     <Button
       fullWidth
       color="primary"
+      size="large"
       sx={{ borderRadius: "4px" }}
       variant="contained"
       type="submit"
