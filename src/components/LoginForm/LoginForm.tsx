@@ -31,7 +31,7 @@ const LoginForm = () => {
       <Stack spacing={1}>
         <TextField
           name="email"
-          placeholder="type your email"
+          placeholder="Type your email"
           margin="normal"
           type="email"
           fullWidth
@@ -47,6 +47,7 @@ const LoginForm = () => {
           fullWidth
           label="Password"
           aria-label="password"
+          placeholder="Type your password"
           onChange={dataRegister}
           required
         />
