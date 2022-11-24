@@ -68,7 +68,7 @@ describe("Given the loginUser method", () => {
     });
 
     describe("When it's invoked with a incorrect password", () => {
-      test("The dispatch shoud be called", async () => {
+      test("The dispatch should be called", async () => {
         const {
           result: {
             current: { loginUser },

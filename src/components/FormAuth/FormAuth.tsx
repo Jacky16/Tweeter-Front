@@ -10,8 +10,13 @@ export const FormAuth = ({ children, title, handleSubmit }: FormAuthProps) => {
     handleSubmit();
   };
   return (
-    <Grid alignItems="center" justifyContent="center">
-      <Grid item>
+    <Grid
+      container
+      alignItems="center"
+      justifyContent="center"
+      style={{ minHeight: "100vh" }}
+    >
+      <Grid item sx={{ width: "100%" }}>
         <Paper sx={{ padding: "24px" }}>
           <Stack component="form" onSubmit={onSubmit} spacing={4}>
             <Typography sx={{ mt: 1, mb: 1, textAlign: "center" }} variant="h2">
