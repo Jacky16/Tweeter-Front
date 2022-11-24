@@ -1,12 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { AlertActionProps, UiState } from "../types";
+import { AlertActionPayloadAction, UiState } from "../types";
 
 const initialState: UiState = {
   alert: {
     isOpen: false,
     message: "",
     severity: "info",
-    timeOpen: 3000,
   },
 };
 
@@ -14,13 +13,16 @@ const uiSlicer = createSlice({
   name: "UI",
   initialState,
   reducers: {
-    openAlert: (currentState, action: PayloadAction<AlertActionProps>) => ({
+    openAlert: (
+      currentState,
+      action: PayloadAction<AlertActionPayloadAction>
+    ) => ({
       ...currentState,
       alert: action.payload,
     }),
     closeAlert: (currentState) => ({
       ...currentState,
-      alert: { ...currentState.alert, isOpen: false },
+      alert: { ...currentState.alert, isOpen: false, message: "" },
     }),
   },
 });
