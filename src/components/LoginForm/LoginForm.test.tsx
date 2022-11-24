@@ -13,17 +13,17 @@ jest.mock("../../hooks/useUser/useUser", () => {
 });
 
 describe("Given the Login form component", () => {
+  const nameButtonSignIn = "Sign in";
+
   describe("When it's renderer", () => {
-    test("Then it should show 2 text inputs: email ,password and button 'Login'", () => {
+    test("Then it should show 2 text inputs: email ,password and button 'Sign in'", () => {
       const labelEmail = "email";
       const labelPassword = "password";
-
-      const nameButton = "Login";
 
       renderWithProviders(<LoginForm />);
 
       const buttonSignUp = screen.getByRole("button", {
-        name: nameButton,
+        name: nameButtonSignIn,
       });
 
       const inputEmail = screen.getByLabelText(labelEmail);
@@ -34,17 +34,15 @@ describe("Given the Login form component", () => {
       expect(inputPassword).toBeInTheDocument();
     });
   });
-  describe("When the user click the Login button", () => {
+  describe("When the user click the Sign in button", () => {
     test("Then userLogin should be called", async () => {
       const labelEmail = "Email";
       const labelPassword = "password";
 
-      const nameButton = "Login";
-
       renderWithProviders(<LoginForm />);
 
       const buttonLogin = screen.getByRole("button", {
-        name: nameButton,
+        name: nameButtonSignIn,
       });
 
       const inputEmail = screen.getByRole("textbox", { name: labelEmail });
