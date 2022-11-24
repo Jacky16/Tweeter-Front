@@ -22,7 +22,7 @@ const uiSlicer = createSlice({
     }),
     closeAlert: (currentState) => ({
       ...currentState,
-      alert: { ...currentState.alert, isOpen: false },
+      alert: { ...currentState.alert, isOpen: false, message: "" },
     }),
   },
 });
