@@ -1,4 +1,4 @@
-import { InputAdornment, TextField, Typography } from "@mui/material";
+import { InputAdornment, Link, TextField, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
 import React from "react";
 import useUser from "../../hooks/useUser/useUser";
@@ -9,6 +9,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
 import LockIcon from "@mui/icons-material/Lock";
 import EmailIcon from "@mui/icons-material/Email";
+import { Link as RouterLink } from "react-router-dom";
 
 export const RegisterForm = () => {
   const { registerUser } = useUser();
@@ -31,7 +32,7 @@ export const RegisterForm = () => {
 
   return (
     <FormAuth
-      title={"Register"}
+      title={"Join Tweeter today"}
       handleSubmit={() => {
         registerUser(registerData);
       }}
@@ -110,6 +111,12 @@ export const RegisterForm = () => {
           }}
         />
       </Stack>
+      <Typography variant="subtitle1">
+        Already have account?
+        <Link component={RouterLink} to="/">
+          {" Sign in now"}
+        </Link>
+      </Typography>
       <PrimaryButton>
         <Typography fontWeight={700}>Sign up</Typography>
       </PrimaryButton>
