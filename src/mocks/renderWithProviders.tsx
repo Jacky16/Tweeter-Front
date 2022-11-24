@@ -4,6 +4,7 @@ import { PropsWithChildren } from "react";
 import { Provider } from "react-redux";
 import { RootState, store } from "../redux/store";
 import { uiReducer } from "../redux/UiSlice/UiSlice";
+import { userReducer } from "../redux/userSlice/userSlice";
 
 interface ExtendedRenderOptions extends Omit<RenderOptions, "queries"> {
   preloadedState?: PreloadedState<RootState>;
@@ -15,7 +16,7 @@ export const renderWithProviders = (
   {
     preloadedState,
     store = configureStore({
-      reducer: { ui: uiReducer },
+      reducer: { ui: uiReducer, user: userReducer },
     }),
     ...renderOptions
   }: ExtendedRenderOptions = {}
