@@ -1,4 +1,4 @@
-import { AlertActionProps, UiState } from "../types";
+import { AlertActionPayloadAction, UiState } from "../types";
 import {
   closeAlertActionCreator,
   openAlertActionCreator,
@@ -8,11 +8,10 @@ import {
 describe("Given the UiReducer", () => {
   describe("When it receives a action to openModal with: message 'Error' severety:'error' isOpen true and the timeOpen 3000", () => {
     test("Then the new state should be with the action payload", () => {
-      const openAlert: AlertActionProps = {
+      const openAlert: AlertActionPayloadAction = {
         severity: "error",
         message: "Error",
         isOpen: true,
-        timeOpen: 3000,
       };
 
       const initialState: UiState = {
@@ -20,7 +19,6 @@ describe("Given the UiReducer", () => {
           isOpen: false,
           message: "",
           severity: "info",
-          timeOpen: 3000,
         },
       };
 
@@ -44,7 +42,6 @@ describe("Given the UiReducer", () => {
           isOpen: true,
           message: "",
           severity: "info",
-          timeOpen: 3000,
         },
       };
 

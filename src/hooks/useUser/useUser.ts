@@ -18,7 +18,6 @@ const useUser = () => {
           isOpen: true,
           message: "Success Register",
           severity: "success",
-          timeOpen: 3000,
         })
       );
     } catch (error: unknown) {
@@ -27,7 +26,6 @@ const useUser = () => {
           isOpen: true,
           message: "Error on Register",
           severity: "error",
-          timeOpen: 3000,
         })
       );
     }
@@ -45,7 +43,6 @@ const useUser = () => {
           isOpen: true,
           message: "Success Register",
           severity: "success",
-          timeOpen: 3000,
         })
       );
     } catch (error: unknown) {
@@ -54,7 +51,6 @@ const useUser = () => {
           isOpen: true,
           message: "Error on Register",
           severity: "error",
-          timeOpen: 3000,
         })
       );
     }

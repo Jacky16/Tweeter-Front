@@ -5,12 +5,11 @@ export interface UserState extends User {
   token: string;
 }
 export interface UiState {
-  alert: AlertActionProps;
+  alert: AlertActionPayloadAction;
 }
 
-export interface AlertActionProps {
+export interface AlertActionPayloadAction {
   severity: "error" | "warning" | "info" | "success";
   message: string;
   isOpen: boolean;
-  timeOpen: number;
 }
