@@ -1,10 +1,13 @@
 import { Container } from "@mui/material";
-import { RegisterForm } from "../RegisterForm/RegisterForm";
+import { Route, Routes } from "react-router-dom";
+import LoginPage from "../../pages/LoginPage/LoginPage";
 
 const App = () => {
   return (
-    <Container>
-      <RegisterForm />
+    <Container maxWidth={"sm"}>
+      <Routes>
+        <Route path="/" element={<LoginPage />} />
+      </Routes>
     </Container>
   );
 };

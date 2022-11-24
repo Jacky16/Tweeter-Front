@@ -1,4 +1,8 @@
-import { StyledEngineProvider, ThemeProvider } from "@mui/material";
+import {
+  CssBaseline,
+  StyledEngineProvider,
+  ThemeProvider,
+} from "@mui/material";
 import React from "react";
 import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
@@ -8,16 +12,22 @@ import { MainTheme } from "./MainTheme/MainTheme";
 import { store } from "./redux/store";
 import "@fontsource/poppins";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
+import { BrowserRouter } from "react-router-dom";
 const container = document.getElementById("root")!;
+
 const root = createRoot(container);
 root.render(
   <React.StrictMode>
     <StyledEngineProvider injectFirst>
-      <ThemeProvider theme={MainTheme}>
-        <Provider store={store}>
-          <App />
-        </Provider>
-      </ThemeProvider>
+      <BrowserRouter>
+        <ThemeProvider theme={MainTheme}>
+          <Provider store={store}>
+            <CssBaseline>
+              <App />
+            </CssBaseline>
+          </Provider>
+        </ThemeProvider>
+      </BrowserRouter>
     </StyledEngineProvider>
   </React.StrictMode>
 );
