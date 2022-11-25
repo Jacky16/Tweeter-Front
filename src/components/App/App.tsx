@@ -10,7 +10,7 @@ const App = () => {
     (state) => state.ui.alert
   );
   return (
-    <Container maxWidth={"sm"}>
+    <Container maxWidth={"md"}>
       <Routes>
         <Route path="/" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />

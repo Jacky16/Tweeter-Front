@@ -1,10 +1,20 @@
-import { Grid, Paper, Stack, Typography } from "@mui/material";
+import {
+  Grid,
+  Paper,
+  Stack,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import React, { PropsWithChildren } from "react";
 interface FormAuthProps extends PropsWithChildren {
   title: string;
   handleSubmit: () => void;
 }
 export const FormAuth = ({ children, title, handleSubmit }: FormAuthProps) => {
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.down("md"));
+
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     handleSubmit();
@@ -17,7 +27,7 @@ export const FormAuth = ({ children, title, handleSubmit }: FormAuthProps) => {
       style={{ minHeight: "100vh" }}
     >
       <Grid item sx={{ width: "100%" }}>
-        <Paper sx={{ paddingY: "62px", paddingX: "52px" }}>
+        <Paper sx={{ paddingY: "62px", paddingX: `${matches ? 16 : 150}px` }}>
           <Stack component="form" onSubmit={onSubmit} spacing={4}>
             <Typography
               sx={{ textAlign: "center" }}
