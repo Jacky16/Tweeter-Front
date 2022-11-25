@@ -39,24 +39,6 @@ export const RegisterForm = () => {
     >
       <Stack spacing={2}>
         <TextField
-          name="username"
-          margin="normal"
-          type="text"
-          fullWidth
-          label="Username"
-          aria-label="username"
-          placeholder="username"
-          onChange={dataRegister}
-          required
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <AlternateEmailIcon />
-              </InputAdornment>
-            ),
-          }}
-        />
-        <TextField
           name="alias"
           margin="normal"
           type="text"
@@ -74,6 +56,25 @@ export const RegisterForm = () => {
             ),
           }}
         />
+        <TextField
+          name="username"
+          margin="normal"
+          type="text"
+          fullWidth
+          label="Username"
+          aria-label="username"
+          placeholder="username"
+          onChange={dataRegister}
+          required
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <AlternateEmailIcon />
+              </InputAdornment>
+            ),
+          }}
+        />
+
         <TextField
           name="email"
           margin="normal"

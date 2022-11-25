@@ -41,7 +41,7 @@ const useUser = () => {
       dispatch(
         openAlertActionCreator({
           isOpen: true,
-          message: "Success Register",
+          message: `Success Login, Hi ${loggedUser.username}`,
           severity: "success",
         })
       );
@@ -49,7 +49,7 @@ const useUser = () => {
       dispatch(
         openAlertActionCreator({
           isOpen: true,
-          message: "Error on Register",
+          message: "Error on Login",
           severity: "error",
         })
       );
