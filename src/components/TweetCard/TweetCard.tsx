@@ -67,12 +67,16 @@ const TweetCard = ({
               </Grid>
 
               <Grid item xs={12}>
-                <Grid item>
-                  <Typography variant={"body1"}>{description}</Typography>
-                </Grid>
-                <Grid item mt={4}>
-                  <img src={image} width="100%" height="300px" alt="Tweet" />
-                </Grid>
+                {description && (
+                  <Grid item>
+                    <Typography variant={"body1"}>{description}</Typography>
+                  </Grid>
+                )}
+                {image && (
+                  <Grid item mt={4}>
+                    <img src={image} width="100%" height="300px" alt="Tweet" />
+                  </Grid>
+                )}
               </Grid>
             </Grid>
           </CardContent>
