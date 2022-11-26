@@ -37,8 +37,8 @@ export enum TweetCategory {
 export interface Tweet {
   username: string;
   alias: string;
-  description: string;
+  description?: string;
   category: TweetCategory;
-  image: string;
+  image?: string;
   dateOfCreation: string;
 }

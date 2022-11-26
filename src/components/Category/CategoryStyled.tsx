@@ -19,7 +19,8 @@ const categoryColor = (category: TweetCategory) => {
   }
 };
 const CategoryStyled = styled.div<CategoryStyledProps>`
-  font-size: 12px;
+  padding: 8px;
+  font-size: 16px;
   font-weight: bold;
   text-align: center;
   border-radius: 4px 21px;
