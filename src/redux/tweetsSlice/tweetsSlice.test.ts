@@ -50,4 +50,25 @@ describe("Given the tweetsReducer", () => {
       expect(newState).toEqual(expectedState);
     });
   });
+
+  describe("When receives a action 'addTweets'", () => {
+    test("Then should return a new state with the tweets added", () => {
+      const initialState: TweetState = {
+        tweets: [],
+        tweet: {} as Tweet,
+      };
+      const tweets = getTweets(5);
+
+      const action = loadTweetsActionCreator(tweets);
+
+      const expectedState: TweetState = {
+        tweets,
+        tweet: {} as Tweet,
+      };
+
+      const newState = tweetsReducer(initialState, action);
+
+      expect(newState).toEqual(expectedState);
+    });
+  });
 });
