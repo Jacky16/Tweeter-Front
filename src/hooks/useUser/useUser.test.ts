@@ -51,7 +51,7 @@ describe("Given the registerUser method", () => {
 
 describe("Given the loginUser method", () => {
   describe("When it's invoked  with email 'mario@gmail.com and password '123'", () => {
-    test("The dispatch should be called 2 times", async () => {
+    test("The dispatch should be called 4 times", async () => {
       const {
         result: {
           current: { loginUser },
@@ -64,7 +64,7 @@ describe("Given the loginUser method", () => {
 
       await loginUser(loginData);
 
-      expect(dispatch).toBeCalledTimes(2);
+      expect(dispatch).toBeCalledTimes(4);
     });
 
     describe("When it's invoked with a incorrect password", () => {

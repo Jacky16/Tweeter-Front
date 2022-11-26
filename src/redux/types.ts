@@ -5,6 +5,7 @@ export interface UserState extends User {
   token: string;
 }
 export interface UiState {
+  isLoading: boolean;
   alert: AlertActionPayloadAction;
 }
 
