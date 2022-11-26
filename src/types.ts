@@ -33,3 +33,12 @@ export enum TweetCategory {
   sports,
   entertainment,
 }
+
+export interface Tweet {
+  username: string;
+  alias: string;
+  description: string;
+  category: TweetCategory;
+  image: string;
+  dateOfCreation: string;
+}
