@@ -2,7 +2,7 @@ import { screen } from "@testing-library/react";
 import { renderWithProviders } from "../../mocks/renderWithProviders";
 import { closeAlertActionCreator } from "../../redux/UiSlice/UiSlice";
 import AlertToast from "./AlertToast";
-
+import SnackbarProps from "@mui/material/Snackbar/Snackbar";
 const mockDispatch = jest.fn();
 
 jest.mock("../../redux/hooks", () => ({

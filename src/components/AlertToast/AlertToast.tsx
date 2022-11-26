@@ -1,5 +1,6 @@
 import Alert from "@mui/material/Alert";
 import Snackbar from "@mui/material/Snackbar/Snackbar";
+import React, { useEffect } from "react";
 import { useAppDispatch } from "../../redux/hooks";
 import { closeAlertActionCreator } from "../../redux/UiSlice/UiSlice";
 
@@ -10,16 +11,30 @@ interface AlertToastProps {
 }
 
 const AlertToast = ({ message, severity, isOpen }: AlertToastProps) => {
+  const [open, setOpen] = React.useState(false);
   const dispatch = useAppDispatch();
-  if (isOpen) {
-    setTimeout(() => {
-      dispatch(closeAlertActionCreator());
-    }, 3000);
-  }
+
+  const handleClose = (
+    event: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(isOpen);
+    dispatch(closeAlertActionCreator());
+  };
+
+  useEffect(() => {
+    setOpen(isOpen);
+  }, [isOpen]);
+
   return (
     <Snackbar
-      open={isOpen}
+      open={open}
+      autoHideDuration={3000}
       anchorOrigin={{ horizontal: "center", vertical: "bottom" }}
+      onClose={handleClose}
     >
       <Alert severity={severity}>{message}</Alert>
     </Snackbar>
