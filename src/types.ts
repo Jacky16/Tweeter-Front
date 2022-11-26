@@ -35,6 +35,7 @@ export enum TweetCategory {
 }
 
 export interface Tweet {
+  id: string;
   username: string;
   alias: string;
   description?: string;

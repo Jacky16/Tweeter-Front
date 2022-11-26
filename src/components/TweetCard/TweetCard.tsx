@@ -8,8 +8,8 @@ import Typography from "@mui/material/Typography/Typography";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { Tweet } from "../../types";
 import Category from "../Category/Category";
-import { CardActions, IconButton } from "@mui/material";
 import TweetCardStyled from "./TweetCardStyled";
+import IconButton from "@mui/material/IconButton/IconButton";
 
 interface TweetCardProps {
   tweet: Tweet;
@@ -19,7 +19,7 @@ const TweetCard = ({
 }: TweetCardProps) => {
   return (
     <TweetCardStyled>
-      <Card component={"article"}>
+      <Card>
         <CardActionArea disableRipple={true} component="a">
           <CardContent>
             <Grid
@@ -52,9 +52,10 @@ const TweetCard = ({
                 </Grid>
                 <Grid
                   item
+                  container
                   xs={1}
-                  justifyContent={"flex-end"}
-                  alignItems={"end"}
+                  justifyContent={"center"}
+                  alignItems={"start"}
                 >
                   <IconButton aria-label="Tweet Options">
                     <MoreHorizIcon />
