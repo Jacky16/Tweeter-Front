@@ -2,6 +2,7 @@ import { getTweet, getTweets } from "../../factory/tweetsFactory";
 import { Tweet } from "../../types";
 import { TweetState } from "../types";
 import {
+  addTweetsActionCreator,
   loadTweetActionCreator,
   loadTweetsActionCreator,
   tweetsReducer,
@@ -59,7 +60,7 @@ describe("Given the tweetsReducer", () => {
       };
       const tweets = getTweets(5);
 
-      const action = loadTweetsActionCreator(tweets);
+      const action = addTweetsActionCreator(tweets);
 
       const expectedState: TweetState = {
         tweets,
