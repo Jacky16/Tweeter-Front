@@ -1,4 +1,4 @@
-import { User } from "../types";
+import { Tweet, User } from "../types";
 
 export interface UserState extends User {
   isLogged: boolean;
@@ -6,6 +6,11 @@ export interface UserState extends User {
 }
 export interface UiState {
   alert: AlertActionPayloadAction;
+}
+
+export interface TweetState {
+  tweets: Tweet[];
+  tweet: Tweet;
 }
 
 export interface AlertActionPayloadAction {
