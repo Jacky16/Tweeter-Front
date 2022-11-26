@@ -19,6 +19,10 @@ const twitterSlice = createSlice({
       ...currentState,
       tweet: action.payload,
     }),
+    addTweets: (currentState, action: PayloadAction<Tweet[]>) => ({
+      ...currentState,
+      tweets: [...currentState.tweets, ...action.payload],
+    }),
   },
 });
 
@@ -26,4 +30,5 @@ export const tweetsReducer = twitterSlice.reducer;
 export const {
   loadTweets: loadTweetsActionCreator,
   loadTweet: loadTweetActionCreator,
+  addTweets: addTweetsActionCreator,
 } = twitterSlice.actions;
