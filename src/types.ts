@@ -25,3 +25,11 @@ export interface JwtPayloadCustom {
   alias: string;
   token: string;
 }
+
+export enum TweetCategory {
+  comedy,
+  science,
+  political,
+  sports,
+  entertainment,
+}
