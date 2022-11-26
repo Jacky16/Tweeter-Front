@@ -4,6 +4,7 @@ import { PropsWithChildren } from "react";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import { RootState, store } from "../redux/store";
+import { tweetsReducer } from "../redux/tweetsSlice/tweetsSlice";
 import { uiReducer } from "../redux/UiSlice/UiSlice";
 import { userReducer } from "../redux/userSlice/userSlice";
 
@@ -17,7 +18,7 @@ export const renderWithProviders = (
   {
     preloadedState,
     store = configureStore({
-      reducer: { ui: uiReducer, user: userReducer },
+      reducer: { ui: uiReducer, user: userReducer, tweets: tweetsReducer },
     }),
     ...renderOptions
   }: ExtendedRenderOptions = {}
