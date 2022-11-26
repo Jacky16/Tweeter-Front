@@ -1,7 +1,11 @@
 import axios from "axios";
 import requestsUrl from "../../config/requestsUrl";
 import { useAppDispatch } from "../../redux/hooks";
-import { openAlertActionCreator } from "../../redux/UiSlice/UiSlice";
+import {
+  closeIsLoadingActionCreator,
+  openAlertActionCreator,
+  openIsLoadingActionCreator,
+} from "../../redux/UiSlice/UiSlice";
 import { userLoginActionCreator } from "../../redux/userSlice/userSlice";
 import { UserLoginData, UserRegisterData } from "../../types";
 import decodeToken from "../../utils/decodeToken";
@@ -32,6 +36,7 @@ const useUser = () => {
   };
 
   const loginUser = async (userData: UserLoginData) => {
+    dispatch(openIsLoadingActionCreator());
     try {
       const response = await axios.post(requestsUrl.loginUser, userData);
       const { token } = await response.data;
@@ -45,6 +50,7 @@ const useUser = () => {
           severity: "success",
         })
       );
+      dispatch(closeIsLoadingActionCreator());
     } catch (error: unknown) {
       dispatch(
         openAlertActionCreator({
@@ -53,6 +59,7 @@ const useUser = () => {
           severity: "error",
         })
       );
+      dispatch(closeIsLoadingActionCreator());
     }
   };
 
