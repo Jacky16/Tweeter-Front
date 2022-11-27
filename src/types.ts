@@ -32,6 +32,7 @@ export enum TweetCategory {
   political,
   sports,
   entertainment,
+  unknown,
 }
 
 export interface Tweet {
@@ -39,7 +40,7 @@ export interface Tweet {
   username: string;
   alias: string;
   description?: string;
-  category: TweetCategory;
+  category: string;
   image?: string;
   dateOfCreation: string;
 }
