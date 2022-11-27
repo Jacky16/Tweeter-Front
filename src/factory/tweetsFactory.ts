@@ -1,4 +1,4 @@
-import { Tweet, TweetCategory } from "../types";
+import { Tweet } from "../types";
 import { faker } from "@faker-js/faker";
 import { Factory } from "fishery";
 

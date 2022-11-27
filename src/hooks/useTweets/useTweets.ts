@@ -4,8 +4,10 @@ import requestsUrl from "../../config/requestsUrl";
 import { useAppDispatch } from "../../redux/hooks";
 import { addTweetsActionCreator } from "../../redux/tweetsSlice/tweetsSlice";
 import {
+  closeIsLoadingActionCreator,
   loadPaginationActionCreator,
   openAlertActionCreator,
+  openIsLoadingActionCreator,
 } from "../../redux/UiSlice/UiSlice";
 import { TweetsResponse } from "../types";
 
@@ -14,6 +16,7 @@ const useTweets = () => {
 
   const getTweets = useCallback(
     async (token: string, page = 1, limit = 5) => {
+      dispatch(openIsLoadingActionCreator());
       try {
         const response = await axios.get(requestsUrl.getTweets, {
           params: { page, limit },
@@ -26,6 +29,7 @@ const useTweets = () => {
 
         dispatch(addTweetsActionCreator(tweets));
         dispatch(loadPaginationActionCreator({ currentPage, totalPages }));
+        dispatch(closeIsLoadingActionCreator());
       } catch (error: unknown) {
         dispatch(
           openAlertActionCreator({
@@ -34,6 +38,8 @@ const useTweets = () => {
             isOpen: true,
           })
         );
+
+        dispatch(closeIsLoadingActionCreator());
       }
     },
     [dispatch]

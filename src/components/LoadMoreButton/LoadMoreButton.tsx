@@ -15,10 +15,10 @@ const LoadMoreButton = ({
 }: LoadMoreButtonProps) => {
   const dispatch = useAppDispatch();
 
-  const disabledButton = currentPage === totalPages;
+  const isLastPage = currentPage === totalPages;
 
   const handleClick = () => {
-    if (disabledButton) {
+    if (isLastPage) {
       return;
     }
     dispatch(advancePaginationActionCreator());

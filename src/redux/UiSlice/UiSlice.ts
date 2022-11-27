@@ -4,7 +4,7 @@ import { AlertActionPayloadAction, Pagination, UiState } from "../types";
 const initialState: UiState = {
   isLoading: false,
   pagination: {
-    currentPage: 0,
+    currentPage: 1,
     totalPages: 0,
   },
   alert: {
