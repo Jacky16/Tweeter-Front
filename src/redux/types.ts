@@ -7,8 +7,13 @@ export interface UserState extends User {
 export interface UiState {
   isLoading: boolean;
   alert: AlertActionPayloadAction;
+  pagination: Pagination;
 }
 
+export interface Pagination {
+  currentPage: number;
+  totalPages: number;
+}
 export interface TweetState {
   tweets: Tweet[];
   tweet: Tweet;
