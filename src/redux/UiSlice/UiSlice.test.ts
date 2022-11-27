@@ -1,7 +1,9 @@
-import { AlertActionPayloadAction, UiState } from "../types";
+import { AlertActionPayloadAction, Pagination, UiState } from "../types";
 import {
+  advancePaginationActionCreator,
   closeAlertActionCreator,
   closeIsLoadingActionCreator,
+  loadPaginationActionCreator,
   openAlertActionCreator,
   openIsLoadingActionCreator,
   uiReducer,
@@ -84,6 +86,50 @@ describe("Given the UiReducer", () => {
       const newState = uiReducer(initialState as UiState, action);
 
       expect(newState).toHaveProperty("isLoading", expectedStatusLoading);
+    });
+  });
+
+  describe("When it receives a action to loadPagination", () => {
+    test("Then should return the new state with pagination", () => {
+      const expectedPagination: Pagination = {
+        currentPage: 1,
+        totalPages: 2,
+      };
+
+      const initialState: Partial<UiState> = {
+        pagination: {
+          currentPage: 0,
+          totalPages: 0,
+        },
+      };
+
+      const action = loadPaginationActionCreator(expectedPagination);
+
+      const newState = uiReducer(initialState as UiState, action);
+
+      expect(newState).toHaveProperty("pagination", expectedPagination);
+    });
+  });
+
+  describe("When it receives a action to advancePagination", () => {
+    test("Then should return the new state with pagination", () => {
+      const expectedPagination: Pagination = {
+        currentPage: 2,
+        totalPages: 2,
+      };
+
+      const initialState: Partial<UiState> = {
+        pagination: {
+          currentPage: 1,
+          totalPages: 2,
+        },
+      };
+
+      const action = advancePaginationActionCreator();
+
+      const newState = uiReducer(initialState as UiState, action);
+
+      expect(newState).toHaveProperty("pagination", expectedPagination);
     });
   });
 });
