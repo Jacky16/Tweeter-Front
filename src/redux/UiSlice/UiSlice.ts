@@ -58,4 +58,6 @@ export const {
   closeIsLoading: closeIsLoadingActionCreator,
   openAlert: openAlertActionCreator,
   closeAlert: closeAlertActionCreator,
+  loadPagination: loadPaginationActionCreator,
+  advancePagination: advancePaginationActionCreator,
 } = uiSlicer.actions;
