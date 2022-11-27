@@ -4,6 +4,7 @@ import { JwtPayloadCustom } from "../types";
 
 const decodeToken = (token: string): UserState => {
   const jwtPayload: JwtPayloadCustom = jwtDecode(token);
+  localStorage.setItem("token", token);
 
   return {
     id: jwtPayload.id,
