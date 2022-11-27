@@ -10,6 +10,7 @@ import { Tweet } from "../../types";
 import Category from "../Category/Category";
 import TweetCardStyled from "./TweetCardStyled";
 import IconButton from "@mui/material/IconButton/IconButton";
+import categoryConverter from "../../utils/categoryConverter/categoryConverter";
 
 interface TweetCardProps {
   tweet: Tweet;
@@ -48,7 +49,7 @@ const TweetCard = ({
                   </Typography>
                 </Grid>
                 <Grid item xs={5} md={4}>
-                  <Category category={category} />
+                  <Category category={categoryConverter(category)} />
                 </Grid>
                 <Grid
                   item
