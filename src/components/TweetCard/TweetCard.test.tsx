@@ -1,15 +1,14 @@
 import { render, screen } from "@testing-library/react";
 import { getTweet } from "../../factory/tweetsFactory";
-import { TweetCategory } from "../../types";
 import TweetCard from "./TweetCard";
 
 describe("Given a TweetCard component", () => {
   describe("When it is rendered with a tweet", () => {
-    test("Then the tweet should be displayed the description the username of tweet author and the category", () => {
+    test("Then the tweet should be displayed the description the username of tweet author and the category(UpperCase)", () => {
       const tweet = getTweet();
 
       const expectedUsername = tweet.username;
-      const expectedCategory = TweetCategory[tweet.category].toUpperCase();
+      const expectedCategory = tweet.category.toUpperCase();
 
       render(<TweetCard tweet={tweet} />);
 

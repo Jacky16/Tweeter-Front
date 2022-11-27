@@ -7,7 +7,7 @@ const tweetFactory = Factory.define<Tweet>(() => ({
   username: faker.name.firstName(),
   alias: faker.name.lastName(),
   description: faker.lorem.sentence(),
-  category: TweetCategory.entertainment,
+  category: "comedy",
   image: faker.image.imageUrl(),
   dateOfCreation: faker.date.past().toString(),
 }));
