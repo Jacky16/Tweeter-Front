@@ -1,8 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { AlertActionPayloadAction, UiState } from "../types";
+import { AlertActionPayloadAction, Pagination, UiState } from "../types";
 
 const initialState: UiState = {
   isLoading: false,
+  pagination: {
+    currentPage: 0,
+    totalPages: 0,
+  },
   alert: {
     isOpen: false,
     message: "",
@@ -21,6 +25,17 @@ const uiSlicer = createSlice({
     closeIsLoading: (currentState) => ({
       ...currentState,
       isLoading: false,
+    }),
+    loadPagination: (currentState, action: PayloadAction<Pagination>) => ({
+      ...currentState,
+      pagination: action.payload,
+    }),
+    advancePagination: (currentState) => ({
+      ...currentState,
+      pagination: {
+        ...currentState.pagination,
+        currentPage: currentState.pagination.currentPage + 1,
+      },
     }),
     openAlert: (
       currentState,
@@ -43,4 +58,6 @@ export const {
   closeIsLoading: closeIsLoadingActionCreator,
   openAlert: openAlertActionCreator,
   closeAlert: closeAlertActionCreator,
+  loadPagination: loadPaginationActionCreator,
+  advancePagination: advancePaginationActionCreator,
 } = uiSlicer.actions;
