@@ -1,10 +1,29 @@
 import LoadingButton from "@mui/lab/LoadingButton";
 import AddIcon from "@mui/icons-material/Add";
+import { useAppDispatch } from "../../redux/hooks";
+import { Pagination } from "../../redux/types";
+import { advancePaginationActionCreator } from "../../redux/UiSlice/UiSlice";
+import Typography from "@mui/material/Typography/Typography";
 
 interface LoadMoreButtonProps {
   isLoading: boolean;
+  pagination: Pagination;
 }
-const LoadMoreButton = ({ isLoading }: LoadMoreButtonProps) => {
+const LoadMoreButton = ({
+  isLoading,
+  pagination: { currentPage, totalPages },
+}: LoadMoreButtonProps) => {
+  const dispatch = useAppDispatch();
+
+  const disabledButton = currentPage === totalPages;
+
+  const handleClick = () => {
+    if (disabledButton) {
+      return;
+    }
+    dispatch(advancePaginationActionCreator());
+  };
+
   return (
     <LoadingButton
       loading={isLoading}
@@ -12,8 +31,11 @@ const LoadMoreButton = ({ isLoading }: LoadMoreButtonProps) => {
       size={"large"}
       endIcon={<AddIcon />}
       loadingPosition="end"
+      onClick={handleClick}
     >
-      Load more
+      <Typography variant="button" fontWeight={900}>
+        Load more
+      </Typography>
     </LoadingButton>
   );
 };
