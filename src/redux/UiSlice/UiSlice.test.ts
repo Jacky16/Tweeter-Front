@@ -16,22 +16,20 @@ describe("Given the UiReducer", () => {
         isOpen: true,
       };
 
-      const initialState: UiState = {
+      const initialState: Partial<UiState> = {
         alert: {
           isOpen: false,
           message: "",
           severity: "info",
         },
-        isLoading: false,
       };
 
-      const expectedState: UiState = {
+      const expectedState: Partial<UiState> = {
         alert: { ...openAlert },
-        isLoading: false,
       };
       const action = openAlertActionCreator(openAlert);
 
-      const newState = uiReducer(initialState, action);
+      const newState = uiReducer(initialState as UiState, action);
 
       expect(newState).toStrictEqual(expectedState);
     });
@@ -41,18 +39,17 @@ describe("Given the UiReducer", () => {
     test("Then should return the new state with alert closed", () => {
       const expectedStatusAlert = false;
 
-      const initialState: UiState = {
+      const initialState: Partial<UiState> = {
         alert: {
           isOpen: true,
           message: "",
           severity: "info",
         },
-        isLoading: false,
       };
 
       const action = closeAlertActionCreator();
 
-      const newState = uiReducer(initialState, action);
+      const newState = uiReducer(initialState as UiState, action);
 
       expect(newState.alert).toHaveProperty("isOpen", expectedStatusAlert);
     });
@@ -62,18 +59,13 @@ describe("Given the UiReducer", () => {
     test("Then should return the new state with isLoading true", () => {
       const expectedStatusLoading = true;
 
-      const initialState: UiState = {
-        alert: {
-          isOpen: false,
-          message: "",
-          severity: "info",
-        },
+      const initialState: Partial<UiState> = {
         isLoading: false,
       };
 
       const action = openIsLoadingActionCreator();
 
-      const newState = uiReducer(initialState, action);
+      const newState = uiReducer(initialState as UiState, action);
 
       expect(newState).toHaveProperty("isLoading", expectedStatusLoading);
     });
@@ -83,18 +75,13 @@ describe("Given the UiReducer", () => {
     test("Then should return the new state with isLoading false", () => {
       const expectedStatusLoading = false;
 
-      const initialState: UiState = {
-        alert: {
-          isOpen: false,
-          message: "",
-          severity: "info",
-        },
+      const initialState: Partial<UiState> = {
         isLoading: true,
       };
 
       const action = closeIsLoadingActionCreator();
 
-      const newState = uiReducer(initialState, action);
+      const newState = uiReducer(initialState as UiState, action);
 
       expect(newState).toHaveProperty("isLoading", expectedStatusLoading);
     });
