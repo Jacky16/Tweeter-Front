@@ -17,7 +17,6 @@ interface ExtendedRenderOptions
   preloadedState?: PreloadedState<RootState>;
   store?: typeof store;
 }
-
 const Router = ({
   children,
   initialEntries,
@@ -32,8 +31,8 @@ const Router = ({
 export const renderWithProviders = (
   ui: React.ReactElement,
   {
-    initialEntries,
     preloadedState,
+    initialEntries,
     store = configureStore({
       reducer: { ui: uiReducer, user: userReducer, tweets: tweetsReducer },
     }),
