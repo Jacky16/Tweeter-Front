@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import requestsUrl from "../../config/requestsUrl";
 import { useAppDispatch } from "../../redux/hooks";
 import {
@@ -12,6 +13,7 @@ import decodeToken from "../../utils/decodeToken";
 
 const useUser = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const registerUser = async (userData: UserRegisterData) => {
     try {
@@ -24,6 +26,8 @@ const useUser = () => {
           severity: "success",
         })
       );
+
+      navigate("/");
     } catch (error: unknown) {
       dispatch(
         openAlertActionCreator({
@@ -40,6 +44,7 @@ const useUser = () => {
     try {
       const response = await axios.post(requestsUrl.loginUser, userData);
       const { token } = await response.data;
+
       const loggedUser = decodeToken(token);
 
       dispatch(userLoginActionCreator(loggedUser));
@@ -51,6 +56,7 @@ const useUser = () => {
         })
       );
       dispatch(closeIsLoadingActionCreator());
+      navigate("/home");
     } catch (error: unknown) {
       dispatch(
         openAlertActionCreator({

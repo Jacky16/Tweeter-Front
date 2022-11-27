@@ -8,13 +8,14 @@ import { tweetsReducer } from "../redux/tweetsSlice/tweetsSlice";
 import { uiReducer } from "../redux/UiSlice/UiSlice";
 import { userReducer } from "../redux/userSlice/userSlice";
 import { InitialEntry } from "@remix-run/router";
-
-interface ExtendedRenderOptions extends Omit<RenderOptions, "queries"> {
-  preloadedState?: PreloadedState<RootState>;
-  store?: typeof store;
-}
 interface ExtendedPropsWithChildren extends PropsWithChildren {
   initialEntries?: InitialEntry[];
+}
+interface ExtendedRenderOptions
+  extends Omit<RenderOptions, "queries">,
+    ExtendedPropsWithChildren {
+  preloadedState?: PreloadedState<RootState>;
+  store?: typeof store;
 }
 const Router = ({
   children,
@@ -26,10 +27,12 @@ const Router = ({
     <BrowserRouter>{children}</BrowserRouter>
   );
 };
+
 export const renderWithProviders = (
   ui: React.ReactElement,
   {
     preloadedState,
+    initialEntries,
     store = configureStore({
       reducer: { ui: uiReducer, user: userReducer, tweets: tweetsReducer },
     }),
@@ -38,7 +41,7 @@ export const renderWithProviders = (
 ) => {
   const Wrapper = ({ children }: PropsWithChildren<{}>): JSX.Element => {
     return (
-      <Router>
+      <Router initialEntries={initialEntries}>
         <Provider store={store}>{children}</Provider>
       </Router>
     );
