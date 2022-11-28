@@ -2,6 +2,7 @@ import Grid from "@mui/material/Grid/Grid";
 import { useEffect } from "react";
 import LoadMoreButton from "../../components/LoadMoreButton/LoadMoreButton";
 import TweetCardList from "../../components/TweetCardList/TweetCardList";
+import useToken from "../../hooks/useToken/useToken";
 import useTweets from "../../hooks/useTweets/useTweets";
 import { useAppSelector } from "../../redux/hooks";
 
@@ -15,11 +16,14 @@ const HomePage = () => {
   const tweets = useAppSelector((state) => state.tweets.tweets);
 
   const { getTweets } = useTweets();
+  const { getToken } = useToken();
+
   const isLastPage = currentPage === totalPages;
 
   useEffect(() => {
     getTweets(token, currentPage);
-  }, [token, getTweets, currentPage]);
+    getToken();
+  }, [currentPage, getToken, getTweets, token]);
 
   return (
     <Grid
