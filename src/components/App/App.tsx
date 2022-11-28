@@ -4,6 +4,7 @@ import { Route, Routes } from "react-router-dom";
 import useToken from "../../hooks/useToken/useToken";
 import HomePage from "../../pages/HomePage/HomePage";
 import LoginPage from "../../pages/LoginPage/LoginPage";
+import NotFoundPage from "../../pages/NotFoundPage/NotFoundPage";
 import RegisterPage from "../../pages/RegisterPage/RegisterPage";
 import { useAppSelector } from "../../redux/hooks";
 import AlertToast from "../AlertToast/AlertToast";
@@ -51,6 +52,7 @@ const App = () => {
               </ProtectedRoute>
             }
           />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
         <AlertToast isOpen={isOpen} severity={severity} message={message} />
       </Container>
