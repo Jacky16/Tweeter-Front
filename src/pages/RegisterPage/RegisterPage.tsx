@@ -1,7 +1,16 @@
+import Loader from "../../components/Loader/Loader";
 import { RegisterForm } from "../../components/RegisterForm/RegisterForm";
+import { useAppSelector } from "../../redux/hooks";
 
 const RegisterPage = () => {
-  return <RegisterForm />;
+  const isLoading = useAppSelector((state) => state.ui.isLoading);
+
+  return (
+    <>
+      <RegisterForm />
+      {isLoading && <Loader />}
+    </>
+  );
 };
 
 export default RegisterPage;
