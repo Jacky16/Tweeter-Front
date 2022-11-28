@@ -1,5 +1,7 @@
 import { screen } from "@testing-library/react";
 import { renderWithProviders } from "../../mocks/renderWithProviders";
+import mockStore from "../../mocks/store/mockStore";
+import { UiState } from "../../redux/types";
 import RegisterPage from "./RegisterPage";
 
 describe("Given a register page", () => {
@@ -28,6 +30,22 @@ describe("Given a register page", () => {
       expect(inputUsername).toBeInTheDocument();
       expect(inputPassword).toBeInTheDocument();
       expect(inputAlias).toBeInTheDocument();
+    });
+  });
+  describe("When is loading", () => {
+    test("Then it should show a loading spinner", () => {
+      const mockUiPreloadedState: Partial<UiState> = {
+        isLoading: true,
+      };
+
+      const store = mockStore({
+        uiPreloadState: mockUiPreloadedState as UiState,
+      });
+      renderWithProviders(<RegisterPage />, { store });
+
+      const loadingSpinner = screen.getByRole("alert");
+
+      expect(loadingSpinner).toBeInTheDocument();
     });
   });
 });
