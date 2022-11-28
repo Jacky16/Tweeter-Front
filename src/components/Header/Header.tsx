@@ -7,7 +7,7 @@ import { Link } from "@mui/material";
 import AccountMenu from "../AccountMenu/AccountMenu";
 import { useAppSelector } from "../../redux/hooks";
 const Header = () => {
-  const { isLogged, alias } = useAppSelector((state) => state.user);
+  const isLogged = useAppSelector((state) => state.user.isLogged);
 
   return (
     <AppBar
