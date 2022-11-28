@@ -19,15 +19,10 @@ const useUser = () => {
     try {
       await axios.post(requestsUrl.registerUser, userData);
 
-      dispatch(
-        openAlertActionCreator({
-          isOpen: true,
-          message: "Success Register",
-          severity: "success",
-        })
-      );
-
-      navigate("/");
+      await loginUser({
+        email: userData.email,
+        password: userData.password,
+      });
     } catch (error: unknown) {
       dispatch(
         openAlertActionCreator({
