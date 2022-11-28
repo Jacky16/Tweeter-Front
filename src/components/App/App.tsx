@@ -6,6 +6,7 @@ import LoginPage from "../../pages/LoginPage/LoginPage";
 import RegisterPage from "../../pages/RegisterPage/RegisterPage";
 import { useAppSelector } from "../../redux/hooks";
 import AlertToast from "../AlertToast/AlertToast";
+import ProtectedAuthRoute from "../ProtectedAuthRoute/ProtectedAuthRoute";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
 const App = () => {
@@ -20,8 +21,22 @@ const App = () => {
   return (
     <Container maxWidth={"md"}>
       <Routes>
-        <Route path="/" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
+        <Route
+          path="/"
+          element={
+            <ProtectedAuthRoute isLogged={isLogged}>
+              <LoginPage />
+            </ProtectedAuthRoute>
+          }
+        />
+        <Route
+          path="/register"
+          element={
+            <ProtectedAuthRoute isLogged={isLogged}>
+              <RegisterPage />
+            </ProtectedAuthRoute>
+          }
+        />
         <Route
           path="/home"
           element={
