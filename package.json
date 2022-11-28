@@ -54,7 +54,8 @@
       "!./src/mocks/handlers.ts",
       "!src/service-worker.ts",
       "!src/serviceWorkerRegistration.ts",
-      "!src/MainTheme/MainTheme.tsx"
+      "!src/MainTheme/MainTheme.tsx",
+      "!src/**/*.snap"
     ]
   },
   "browserslist": {
