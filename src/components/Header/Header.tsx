@@ -3,8 +3,12 @@ import AppBar from "@mui/material/AppBar/AppBar";
 import Box from "@mui/material/Box/Box";
 import Container from "@mui/material/Container/Container";
 import Stack from "@mui/system/Stack";
-
+import { Link } from "@mui/material";
+import AccountMenu from "../AccountMenu/AccountMenu";
+import { useAppSelector } from "../../redux/hooks";
 const Header = () => {
+  const { isLogged, alias } = useAppSelector((state) => state.user);
+
   return (
     <AppBar
       position="static"
@@ -15,7 +19,7 @@ const Header = () => {
       <Container maxWidth="xl">
         <Stack width={"100%"} direction={"row"} alignItems={"center"}>
           <Box sx={{ flex: 1 }}>
-            <RouterLink to="/">
+            <RouterLink to="/" aria-label="Logo Tweeter">
               <svg
                 width="126"
                 height="30"
@@ -42,6 +46,13 @@ const Header = () => {
               </svg>
             </RouterLink>
           </Box>
+          {!isLogged ? (
+            <Link component={RouterLink} to={"/"} fontSize={"18px"}>
+              Sign in
+            </Link>
+          ) : (
+            <AccountMenu />
+          )}
         </Stack>
       </Container>
     </AppBar>
