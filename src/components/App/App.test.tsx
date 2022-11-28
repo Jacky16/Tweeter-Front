@@ -34,4 +34,20 @@ describe("Given an App component", () => {
       });
     });
   });
+
+  describe("When user is logged in home page", () => {
+    describe("And go to login page", () => {
+      test("Then it should return to home page and shoud show the 'load more' button", () => {
+        const store = mockStore({ userPreloadState: mockUserLogged });
+        const initialEntries = ["/"];
+        const nameButton = "Load more";
+
+        renderWithProviders(<App />, { store, initialEntries });
+
+        const button = screen.getByRole("button", { name: nameButton });
+
+        expect(button).toBeInTheDocument();
+      });
+    });
+  });
 });
