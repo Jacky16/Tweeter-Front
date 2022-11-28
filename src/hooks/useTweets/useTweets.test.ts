@@ -1,10 +1,14 @@
 import { renderHook } from "@testing-library/react";
 import ProviderWrapper from "../../mocks/providerWrapper";
-import { mockTweetsResponse } from "../../mocks/tweets/tweetsMock";
+import { mockTweet, mockTweetsResponse } from "../../mocks/tweets/tweetsMock";
 import { mockTokenMario } from "../../mocks/userMocks";
 import { store } from "../../redux/store";
-import { addTweetsActionCreator } from "../../redux/tweetsSlice/tweetsSlice";
 import {
+  addTweetsActionCreator,
+  loadTweetActionCreator,
+} from "../../redux/tweetsSlice/tweetsSlice";
+import {
+  closeIsLoadingActionCreator,
   loadPaginationActionCreator,
   openAlertActionCreator,
 } from "../../redux/UiSlice/UiSlice";
@@ -38,7 +42,7 @@ describe("Given the custom hook useTweets", () => {
       expect(dispatch).toBeCalledWith(expectedActionPagination);
     });
 
-    describe("When getTweets is called without token", () => {
+    describe("And is called without token", () => {
       test("The dispatch should be called with OpenAlertActionCreator", async () => {
         const token = "123";
         const expectedAction = openAlertActionCreator({
@@ -103,6 +107,45 @@ describe("Given the custom hook useTweets", () => {
           expect(dispatch).toBeCalledWith(expectedAction);
         });
       });
+    });
+  });
+
+  describe("When getOneTweet is called with a valid token", () => {
+    test("The dispatch should be called with 'loadTweet'", async () => {
+      const tweet = { ...mockTweet };
+      const token = mockTokenMario;
+
+      const {
+        result: {
+          current: { getOneTweet },
+        },
+      } = renderHook(() => useTweets(), { wrapper: ProviderWrapper });
+
+      await getOneTweet(token, tweet.id);
+
+      expect(dispatch).toBeCalledWith(loadTweetActionCreator(tweet));
+    });
+  });
+
+  describe("When getOneTweet is called with a invalid token", () => {
+    test("The dispatch should be called with 'openAlertActionCreator'", async () => {
+      const tweet = { ...mockTweet };
+      const token = "123";
+      const expectedAction = openAlertActionCreator({
+        message: "Error to load tweet",
+        severity: "error",
+        isOpen: true,
+      });
+
+      const {
+        result: {
+          current: { getOneTweet },
+        },
+      } = renderHook(() => useTweets(), { wrapper: ProviderWrapper });
+
+      await getOneTweet(token, tweet.id);
+
+      expect(dispatch).toBeCalledWith(expectedAction);
     });
   });
 });
