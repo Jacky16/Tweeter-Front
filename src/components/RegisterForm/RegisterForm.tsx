@@ -30,6 +30,23 @@ export const RegisterForm = () => {
     });
   };
 
+  const conditions = {
+    usernameField: {
+      condition:
+        registerData.username.length < 3 && registerData.username !== "",
+      message: "Username must be at least 3 characters long",
+    },
+    aliasField: {
+      condition: registerData.alias.length < 3 && registerData.alias !== "",
+      message: "Alias must be at least 3 characters long",
+    },
+    passwordField: {
+      condition:
+        registerData.password.length < 8 && registerData.password !== "",
+      message: "Password must be at least 8 characters long",
+    },
+  };
+
   return (
     <FormAuth
       title={"Join Tweeter today"}
@@ -41,13 +58,14 @@ export const RegisterForm = () => {
         <TextField
           name="alias"
           margin="normal"
+          error={conditions.aliasField.condition}
+          helperText={conditions.aliasField.message}
           type="text"
           fullWidth
           label="Name"
           aria-label="alias"
           placeholder="Full name"
           onChange={dataRegister}
-          required
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
@@ -65,7 +83,8 @@ export const RegisterForm = () => {
           aria-label="username"
           placeholder="username"
           onChange={dataRegister}
-          required
+          error={conditions.usernameField.condition}
+          helperText={conditions.usernameField.message}
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
@@ -78,13 +97,12 @@ export const RegisterForm = () => {
         <TextField
           name="email"
           margin="normal"
-          type="email"
           fullWidth
           label="Email"
           aria-label="email"
           placeholder="Type your email"
+          type="email"
           onChange={dataRegister}
-          required
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
@@ -101,8 +119,9 @@ export const RegisterForm = () => {
           label="Password"
           aria-label="password"
           placeholder="Type your password"
+          error={conditions.passwordField.condition}
+          helperText={conditions.passwordField.message}
           onChange={dataRegister}
-          required
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">

@@ -29,6 +29,12 @@ const LoginForm = () => {
       [event.target.name]: event.target.value,
     });
   };
+  const conditions = {
+    passwordField: {
+      condition: loginData.password.length < 8 && loginData.password !== "",
+      message: "Password must be at least 8 characters long",
+    },
+  };
   return (
     <FormAuth
       title={"Sign in to Tweeter"}
@@ -46,7 +52,6 @@ const LoginForm = () => {
           label="Email"
           aria-label="email"
           onChange={dataRegister}
-          required
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
@@ -64,7 +69,8 @@ const LoginForm = () => {
           aria-label="password"
           placeholder="Type your password"
           onChange={dataRegister}
-          required
+          error={conditions.passwordField.condition}
+          helperText={conditions.passwordField.message}
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
