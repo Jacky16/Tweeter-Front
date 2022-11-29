@@ -13,7 +13,7 @@ const twitterSlice = createSlice({
   reducers: {
     loadTweets: (currentState, action: PayloadAction<Tweet[]>) => ({
       ...currentState,
-      tweets: action.payload,
+      tweets: [...action.payload],
     }),
     loadTweet: (currentState, action: PayloadAction<Tweet>) => ({
       ...currentState,
