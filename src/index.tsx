@@ -8,11 +8,11 @@ import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
 import App from "./components/App/App";
 import "./index.css";
-import { MainTheme } from "./MainTheme/MainTheme";
 import { store } from "./redux/store";
 import "@fontsource/poppins";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import { BrowserRouter } from "react-router-dom";
+import mainTheme from "./styles/mainTheme";
 const container = document.getElementById("root")!;
 
 const root = createRoot(container);
@@ -20,7 +20,7 @@ root.render(
   <React.StrictMode>
     <StyledEngineProvider injectFirst>
       <BrowserRouter>
-        <ThemeProvider theme={MainTheme}>
+        <ThemeProvider theme={mainTheme}>
           <Provider store={store}>
             <CssBaseline>
               <App />
