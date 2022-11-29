@@ -12,7 +12,7 @@ import TweetCardStyled from "./TweetCardStyled";
 import IconButton from "@mui/material/IconButton/IconButton";
 import categoryConverter from "../../utils/categoryConverter/categoryConverter";
 import { useNavigate } from "react-router-dom";
-
+import TimeAgo from "timeago-react";
 interface TweetCardProps {
   tweet: Tweet;
 }
@@ -33,32 +33,21 @@ const TweetCard = ({
           aria-label="tweet"
         >
           <CardContent>
-            <Grid
-              container
-              spacing={2}
-              alignItems={"flex-start"}
-              justifyContent={"space-between"}
-            >
-              <Grid item container xs={12} justifyContent={"flex-end"}>
-                <Grid item xs={2} md={1}>
+            <Grid container spacing={2}>
+              <Grid item container xs={12} columnGap={3}>
+                <Grid item xs={1}>
                   <Avatar />
                 </Grid>
-                <Grid
-                  item
-                  flexDirection={"column"}
-                  justifyContent={"center"}
-                  xs={4}
-                  md={6}
-                >
+                <Grid item xs={4}>
                   <Typography variant={"h6"} fontWeight={900} fontSize={16}>
                     {alias}
                   </Typography>
                   <Typography variant={"subtitle1"}>{username}</Typography>
-                  <Typography variant={"subtitle2"}>
-                    {dateOfCreation}
+                  <Typography variant={"subtitle2"} fontSize={12}>
+                    <TimeAgo datetime={dateOfCreation} live={true} />
                   </Typography>
                 </Grid>
-                <Grid item xs={5} md={4}>
+                <Grid item md={4}>
                   <Category category={categoryConverter(category)} />
                 </Grid>
                 <Grid
