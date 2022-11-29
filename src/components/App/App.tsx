@@ -2,6 +2,7 @@ import { Container } from "@mui/material";
 import { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import useToken from "../../hooks/useToken/useToken";
+import DetailPage from "../../pages/TweetDetailPage/TweetDetailPage";
 import HomePage from "../../pages/HomePage/HomePage";
 import LoginPage from "../../pages/LoginPage/LoginPage";
 import NotFoundPage from "../../pages/NotFoundPage/NotFoundPage";
@@ -17,6 +18,7 @@ const App = () => {
   const {
     alert: { isOpen, message, severity },
   } = useAppSelector((state) => state.ui);
+
   const isLogged = useAppSelector((state) => state.user.isLogged);
 
   useEffect(() => {
@@ -45,6 +47,14 @@ const App = () => {
             }
           />
           <Route
+            path="/tweet/:idTweet"
+            element={
+              <ProtectedRoute isLogged={isLogged}>
+                <DetailPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
             path="/home"
             element={
               <ProtectedRoute isLogged={isLogged}>
@@ -52,6 +62,7 @@ const App = () => {
               </ProtectedRoute>
             }
           />
+
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
         <AlertToast isOpen={isOpen} severity={severity} message={message} />
