@@ -81,32 +81,35 @@ const useTweets = () => {
     [dispatch]
   );
 
-  const getOneTweet = async (token: string, idTweet: string) => {
-    dispatch(openIsLoadingActionCreator());
-    try {
-      const response = await axios.get(
-        `${requestsUrl.getOneTweet}/${idTweet}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      const { tweet } = await response.data;
+  const getOneTweet = useCallback(
+    async (token: string, idTweet: string) => {
+      dispatch(openIsLoadingActionCreator());
+      try {
+        const response = await axios.get(
+          `${requestsUrl.getOneTweet}/${idTweet}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        const { tweet } = await response.data;
 
-      dispatch(closeIsLoadingActionCreator());
-      dispatch(loadTweetActionCreator(tweet));
-    } catch (error: unknown) {
-      dispatch(
-        openAlertActionCreator({
-          message: "Error to load tweet",
-          severity: "error",
-          isOpen: true,
-        })
-      );
-      dispatch(closeIsLoadingActionCreator());
-    }
-  };
+        dispatch(closeIsLoadingActionCreator());
+        dispatch(loadTweetActionCreator(tweet));
+      } catch (error: unknown) {
+        dispatch(
+          openAlertActionCreator({
+            message: "Error to load tweet",
+            severity: "error",
+            isOpen: true,
+          })
+        );
+        dispatch(closeIsLoadingActionCreator());
+      }
+    },
+    [dispatch]
+  );
 
   return { getTweets, getOneTweet, loadTweets };
 };
