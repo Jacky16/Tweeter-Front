@@ -30,6 +30,7 @@ const TweetCard = ({
           disableRipple={true}
           component="a"
           onClick={handleClick}
+          aria-label="tweet"
         >
           <CardContent>
             <Grid
