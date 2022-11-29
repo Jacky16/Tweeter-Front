@@ -38,7 +38,8 @@
     "test": "react-scripts test ",
     "test:coverage": "react-scripts test --coverage --watchAll=false ",
     "eject": "react-scripts eject",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "delete-all-branches": "git branch | grep -v 'master' | xargs git branch -D"
   },
   "eslintConfig": {
     "extends": [
