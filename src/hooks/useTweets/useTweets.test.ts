@@ -6,9 +6,9 @@ import { store } from "../../redux/store";
 import {
   addTweetsActionCreator,
   loadTweetActionCreator,
+  loadTweetsActionCreator,
 } from "../../redux/tweetsSlice/tweetsSlice";
 import {
-  closeIsLoadingActionCreator,
   loadPaginationActionCreator,
   openAlertActionCreator,
 } from "../../redux/UiSlice/UiSlice";
@@ -17,6 +17,50 @@ import useTweets from "./useTweets";
 const dispatch = jest.spyOn(store, "dispatch");
 
 describe("Given the custom hook useTweets", () => {
+  describe("When loadTweets is called", () => {
+    test("Then the dispatch should be called with loadTweetsActionCreator and loadPaginationActionCreator", async () => {
+      const {
+        result: {
+          current: { loadTweets },
+        },
+      } = renderHook(() => useTweets(), {
+        wrapper: ProviderWrapper,
+      });
+      await loadTweets(mockTokenMario);
+
+      expect(dispatch).toHaveBeenCalledWith(
+        loadTweetsActionCreator(mockTweetsResponse.tweets)
+      );
+      expect(dispatch).toHaveBeenCalledWith(
+        loadPaginationActionCreator({
+          currentPage: mockTweetsResponse.currentPage,
+          totalPages: mockTweetsResponse.totalPages,
+        })
+      );
+    });
+  });
+
+  describe("When loadTweets is called with invalid token", () => {
+    test("Then the dispatch should be called with openAlertActionCreator", async () => {
+      const {
+        result: {
+          current: { loadTweets },
+        },
+      } = renderHook(() => useTweets(), {
+        wrapper: ProviderWrapper,
+      });
+      await loadTweets("invalid token");
+
+      expect(dispatch).toHaveBeenCalledWith(
+        openAlertActionCreator({
+          message: "Error to load tweets",
+          severity: "error",
+          isOpen: true,
+        })
+      );
+    });
+  });
+
   describe("When getTweets is called with a valid token", () => {
     test("The dispatch should be called with 'addTweetsActionCreator' and 'loadPaginationActionCreator'", async () => {
       const expectedTweets = mockTweetsResponse.tweets;
