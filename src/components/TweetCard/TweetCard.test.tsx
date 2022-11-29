@@ -1,5 +1,6 @@
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import { getTweet } from "../../factory/tweetsFactory";
+import { renderWithProviders } from "../../mocks/renderWithProviders";
 import TweetCard from "./TweetCard";
 
 describe("Given a TweetCard component", () => {
@@ -10,7 +11,7 @@ describe("Given a TweetCard component", () => {
       const expectedUsername = tweet.username;
       const expectedCategory = tweet.category.toUpperCase();
 
-      render(<TweetCard tweet={tweet} />);
+      renderWithProviders(<TweetCard tweet={tweet} />);
 
       const username = screen.getByText(expectedUsername);
       const category = screen.getByText(expectedCategory);
