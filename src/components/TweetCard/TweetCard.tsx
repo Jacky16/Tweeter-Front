@@ -11,17 +11,27 @@ import Category from "../Category/Category";
 import TweetCardStyled from "./TweetCardStyled";
 import IconButton from "@mui/material/IconButton/IconButton";
 import categoryConverter from "../../utils/categoryConverter/categoryConverter";
+import { useNavigate } from "react-router-dom";
 
 interface TweetCardProps {
   tweet: Tweet;
 }
 const TweetCard = ({
-  tweet: { alias, category, dateOfCreation, username, description, image },
+  tweet: { alias, category, dateOfCreation, username, description, image, id },
 }: TweetCardProps) => {
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate(`/tweet/${id}`);
+  };
   return (
     <TweetCardStyled>
       <Card>
-        <CardActionArea disableRipple={true} component="a">
+        <CardActionArea
+          disableRipple={true}
+          component="a"
+          onClick={handleClick}
+          aria-label="tweet"
+        >
           <CardContent>
             <Grid
               container
