@@ -5,10 +5,8 @@ import Stack from "@mui/system/Stack/Stack";
 import { Tweet } from "../../types";
 import categoryConverter from "../../utils/categoryConverter/categoryConverter";
 import getCategoryColor from "../../utils/getCategoryColor/getCategoryColor";
-import en from "javascript-time-ago/locale/en";
-import TimeAgo from "javascript-time-ago";
 import TweetDetailStyled from "./TweetDetailStyled";
-
+import TimeAgo from "timeago-react";
 interface TweetDetailProps {
   tweet: Tweet;
 }
@@ -16,15 +14,11 @@ interface TweetDetailProps {
 const TweetDetail = ({
   tweet: { category, alias, username, dateOfCreation, description, image },
 }: TweetDetailProps) => {
-  TimeAgo.addDefaultLocale(en);
-  const timeAgo = new TimeAgo("en-US");
-  const date = timeAgo.format(new Date(dateOfCreation), "twitter-now");
-
   const tweetCategory = categoryConverter(category);
   const categoryColor = getCategoryColor(tweetCategory);
   return (
     <TweetDetailStyled>
-      <Grid container xs={12} rowGap={2} padding={2} direction={"column"}>
+      <Grid container rowGap={2} direction={"column"}>
         <Grid item xs={12}>
           <Paper
             variant="outlined"
@@ -51,16 +45,12 @@ const TweetDetail = ({
           </Paper>
         </Grid>
 
-        <Grid
-          item
-          xs={12}
-          alignItems={"center"}
-          direction={"column"}
-          spacing={2}
-        >
+        <Grid item xs={12} alignItems={"center"} spacing={2}>
           <Paper>
             <Grid item xs={12} padding={2}>
-              <Typography variant={"subtitle1"}>{date}</Typography>
+              <Typography variant={"subtitle1"}>
+                <TimeAgo datetime={dateOfCreation} />
+              </Typography>
             </Grid>
             <Grid item xs={12} padding={2}>
               <Stack direction={"column"} spacing={2}>
