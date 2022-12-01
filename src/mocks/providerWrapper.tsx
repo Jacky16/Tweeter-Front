@@ -1,6 +1,8 @@
+import { ThemeProvider } from "@mui/system";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import { store } from "../redux/store";
+import mainTheme from "../styles/mainTheme";
 
 interface ProviderWrapperProps {
   children: JSX.Element | JSX.Element[];
@@ -8,7 +10,9 @@ interface ProviderWrapperProps {
 const ProviderWrapper = ({ children }: ProviderWrapperProps) => {
   return (
     <BrowserRouter>
-      <Provider store={store}>{children}</Provider>
+      <ThemeProvider theme={mainTheme}>
+        <Provider store={store}>{children}</Provider>
+      </ThemeProvider>
     </BrowserRouter>
   );
 };
