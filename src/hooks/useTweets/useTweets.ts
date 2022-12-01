@@ -13,6 +13,7 @@ import {
   openAlertActionCreator,
   openIsLoadingActionCreator,
 } from "../../redux/UiSlice/UiSlice";
+import { parseTweetApi, parseTweetsApi } from "../../utils/parseTweetApi";
 import { TweetsResponse } from "../types";
 
 const useTweets = () => {
@@ -33,7 +34,8 @@ const useTweets = () => {
           }
         );
         const { tweets, currentPage, totalPages } = response.data;
-        dispatch(loadTweetsActionCreator(tweets));
+
+        dispatch(loadTweetsActionCreator(parseTweetsApi(tweets)));
         dispatch(loadPaginationActionCreator({ currentPage, totalPages }));
 
         dispatch(closeIsLoadingActionCreator());
@@ -60,10 +62,12 @@ const useTweets = () => {
             Authorization: `Bearer ${token}`,
           },
         });
+
         const { tweets, currentPage, totalPages } =
           (await response.data) as TweetsResponse;
 
-        dispatch(addTweetsActionCreator(tweets));
+        dispatch(addTweetsActionCreator(parseTweetsApi(tweets)));
+
         dispatch(loadPaginationActionCreator({ currentPage, totalPages }));
         dispatch(closeIsLoadingActionCreator());
       } catch (error: unknown) {
@@ -93,10 +97,11 @@ const useTweets = () => {
             },
           }
         );
+
         const { tweet } = await response.data;
 
         dispatch(closeIsLoadingActionCreator());
-        dispatch(loadTweetActionCreator(tweet));
+        dispatch(loadTweetActionCreator(parseTweetApi(tweet)));
       } catch (error: unknown) {
         dispatch(
           openAlertActionCreator({
