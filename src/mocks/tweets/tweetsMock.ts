@@ -1,4 +1,5 @@
 import { getTweetApi, getTweetsApi } from "../../factory/tweetsFactory";
+import { TweetData } from "../../types";
 
 export const mockTweetsResponse = {
   tweets: getTweetsApi(10),
@@ -7,3 +8,13 @@ export const mockTweetsResponse = {
 };
 
 export const mockTweet = getTweetApi();
+
+export const mockDataTweet: TweetData = {
+  image: {} as File,
+  username: "",
+  alias: "",
+  id: "",
+  description: "",
+  category: "",
+  dateOfCreation: "",
+};

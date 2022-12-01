@@ -2,7 +2,7 @@ import axios from "axios";
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import requestsUrl from "../../config/requestsUrl";
-import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { useAppDispatch } from "../../redux/hooks";
 import {
   addTweetsActionCreator,
   loadTweetActionCreator,
