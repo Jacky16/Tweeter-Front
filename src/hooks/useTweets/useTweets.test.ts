@@ -1,6 +1,7 @@
 import { renderHook } from "@testing-library/react";
 import ProviderWrapper from "../../mocks/providerWrapper";
 import {
+  mockDataTweet,
   mockTweet as mockTweetApi,
   mockTweetsResponse,
 } from "../../mocks/tweets/tweetsMock";
@@ -19,6 +20,12 @@ import { parseTweetApi, parseTweetsApi } from "../../utils/parseTweetApi";
 import useTweets from "./useTweets";
 
 const dispatch = jest.spyOn(store, "dispatch");
+
+const mockUseNavigate = jest.fn();
+jest.mock("react-router-dom", () => ({
+  ...jest.requireActual("react-router-dom"),
+  useNavigate: () => mockUseNavigate,
+}));
 
 describe("Given the custom hook useTweets", () => {
   describe("When loadTweets is called", () => {
@@ -195,6 +202,40 @@ describe("Given the custom hook useTweets", () => {
       await getOneTweet(token, tweet.id);
 
       expect(dispatch).toBeCalledWith(expectedAction);
+    });
+  });
+
+  describe("When createTweet is called with a valid token", () => {
+    test("Then it should show call the navigate with '/'", async () => {
+      const {
+        result: {
+          current: { createTweet },
+        },
+      } = renderHook(() => useTweets(), { wrapper: ProviderWrapper });
+
+      await createTweet(mockTokenMario, mockDataTweet);
+
+      expect(mockUseNavigate).toHaveBeenCalled();
+    });
+  });
+
+  describe("When createTweet is called with a invalid token", () => {
+    test("Then dispatch should be called with 'openAlertActionCreator'", async () => {
+      const {
+        result: {
+          current: { createTweet },
+        },
+      } = renderHook(() => useTweets(), { wrapper: ProviderWrapper });
+
+      await createTweet("123", mockDataTweet);
+
+      expect(dispatch).toBeCalledWith(
+        openAlertActionCreator({
+          message: "Error to create tweet",
+          severity: "error",
+          isOpen: true,
+        })
+      );
     });
   });
 });

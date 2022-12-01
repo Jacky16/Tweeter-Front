@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import requestsUrl from "../../config/requestsUrl";
 import { useAppDispatch } from "../../redux/hooks";
 import {
@@ -13,10 +14,12 @@ import {
   openAlertActionCreator,
   openIsLoadingActionCreator,
 } from "../../redux/UiSlice/UiSlice";
+import { TweetData } from "../../types";
 import { parseTweetApi, parseTweetsApi } from "../../utils/parseTweetApi";
 import { TweetsResponse } from "../types";
 
 const useTweets = () => {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   const loadTweets = useCallback(
@@ -52,6 +55,7 @@ const useTweets = () => {
     },
     [dispatch]
   );
+
   const getTweets = useCallback(
     async (token: string, page = 1, limit = 5) => {
       dispatch(openIsLoadingActionCreator());
@@ -116,6 +120,25 @@ const useTweets = () => {
     [dispatch]
   );
 
-  return { getTweets, getOneTweet, loadTweets };
+  const createTweet = async (token: string, tweetData: TweetData) => {
+    try {
+      await axios.post(requestsUrl.createTweet, tweetData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      navigate("/");
+    } catch (error: unknown) {
+      dispatch(
+        openAlertActionCreator({
+          message: "Error to create tweet",
+          severity: "error",
+          isOpen: true,
+        })
+      );
+    }
+  };
+  return { getTweets, getOneTweet, loadTweets, createTweet };
 };
 export default useTweets;

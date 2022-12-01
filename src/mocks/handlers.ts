@@ -1,5 +1,6 @@
 import { rest } from "msw";
 import requestsUrl from "../config/requestsUrl";
+import { getTweetApi } from "../factory/tweetsFactory";
 import { UserLoginData, UserRegisterData } from "../types";
 import { mockTweet, mockTweetsResponse } from "./tweets/tweetsMock";
 import { mockTokenMario } from "./userMocks";
@@ -68,4 +69,14 @@ export const handlers = [
       return res(ctx.status(200), ctx.json({ tweet }));
     }
   ),
+
+  rest.post(requestsUrl.createTweet, async (req, res, ctx) => {
+    const token = req.headers.get("Authorization");
+    const tweetCreated = getTweetApi();
+    if (token !== `Bearer ${mockTokenMario}`) {
+      return res(ctx.status(401), ctx.json({ error: "Invalid token" }));
+    }
+
+    return res(ctx.status(201), ctx.json({ tweet: tweetCreated }));
+  }),
 ];
