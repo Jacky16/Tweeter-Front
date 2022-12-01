@@ -1,6 +1,9 @@
 import { renderHook } from "@testing-library/react";
 import ProviderWrapper from "../../mocks/providerWrapper";
-import { mockTweet, mockTweetsResponse } from "../../mocks/tweets/tweetsMock";
+import {
+  mockTweet as mockTweetApi,
+  mockTweetsResponse,
+} from "../../mocks/tweets/tweetsMock";
 import { mockTokenMario } from "../../mocks/userMocks";
 import { store } from "../../redux/store";
 import {
@@ -12,6 +15,7 @@ import {
   loadPaginationActionCreator,
   openAlertActionCreator,
 } from "../../redux/UiSlice/UiSlice";
+import { parseTweetApi, parseTweetsApi } from "../../utils/parseTweetApi";
 import useTweets from "./useTweets";
 
 const dispatch = jest.spyOn(store, "dispatch");
@@ -19,6 +23,7 @@ const dispatch = jest.spyOn(store, "dispatch");
 describe("Given the custom hook useTweets", () => {
   describe("When loadTweets is called", () => {
     test("Then the dispatch should be called with loadTweetsActionCreator and loadPaginationActionCreator", async () => {
+      const expectedTweets = parseTweetsApi(mockTweetsResponse.tweets);
       const {
         result: {
           current: { loadTweets },
@@ -29,7 +34,7 @@ describe("Given the custom hook useTweets", () => {
       await loadTweets(mockTokenMario);
 
       expect(dispatch).toHaveBeenCalledWith(
-        loadTweetsActionCreator(mockTweetsResponse.tweets)
+        loadTweetsActionCreator(expectedTweets)
       );
       expect(dispatch).toHaveBeenCalledWith(
         loadPaginationActionCreator({
@@ -63,7 +68,7 @@ describe("Given the custom hook useTweets", () => {
 
   describe("When getTweets is called with a valid token", () => {
     test("The dispatch should be called with 'addTweetsActionCreator' and 'loadPaginationActionCreator'", async () => {
-      const expectedTweets = mockTweetsResponse.tweets;
+      const expectedTweets = parseTweetsApi(mockTweetsResponse.tweets);
       const expectedPagination = {
         currentPage: mockTweetsResponse.currentPage,
         totalPages: mockTweetsResponse.totalPages,
@@ -156,7 +161,7 @@ describe("Given the custom hook useTweets", () => {
 
   describe("When getOneTweet is called with a valid token", () => {
     test("The dispatch should be called with 'loadTweet'", async () => {
-      const tweet = { ...mockTweet };
+      const tweet = parseTweetApi(mockTweetApi);
       const token = mockTokenMario;
 
       const {
@@ -173,7 +178,7 @@ describe("Given the custom hook useTweets", () => {
 
   describe("When getOneTweet is called with a invalid token", () => {
     test("The dispatch should be called with 'openAlertActionCreator'", async () => {
-      const tweet = { ...mockTweet };
+      const tweet = { ...mockTweetApi };
       const token = "123";
       const expectedAction = openAlertActionCreator({
         message: "Error to load tweet",
