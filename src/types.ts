@@ -35,12 +35,21 @@ export enum TweetCategory {
   unknown,
 }
 
-export interface Tweet {
+export interface TweetStructure {
   id: string;
+  description: string;
+  category: string;
+  dateOfCreation: Date | string;
+}
+export interface TweetApi extends TweetStructure {
+  author: {
+    alias: string;
+    username: string;
+  };
+  image: string;
+}
+export interface Tweet extends TweetStructure {
   username: string;
   alias: string;
-  description?: string;
-  category: string;
-  image?: string;
-  dateOfCreation: string;
+  image: string;
 }
