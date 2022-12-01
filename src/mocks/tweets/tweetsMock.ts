@@ -1,9 +1,9 @@
-import { getTweet, getTweets } from "../../factory/tweetsFactory";
+import { getTweetApi, getTweetsApi } from "../../factory/tweetsFactory";
 
 export const mockTweetsResponse = {
-  tweets: getTweets(10),
+  tweets: getTweetsApi(10),
   currentPage: 1,
   totalPages: 2,
 };
 
-export const mockTweet = getTweet();
+export const mockTweet = getTweetApi();
