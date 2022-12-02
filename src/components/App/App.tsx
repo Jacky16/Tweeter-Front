@@ -12,6 +12,7 @@ import AlertToast from "../AlertToast/AlertToast";
 import Header from "../Header/Header";
 import ProtectedAuthRoute from "../ProtectedAuthRoute/ProtectedAuthRoute";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
+import CreateTweetPage from "../../pages/CreateTweetPage/CreateTweetPage";
 
 const App = () => {
   const { getToken } = useToken();
@@ -62,6 +63,8 @@ const App = () => {
               </ProtectedRoute>
             }
           />
+
+          <Route path="/create" element={<CreateTweetPage />} />
 
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
