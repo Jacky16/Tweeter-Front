@@ -11,10 +11,10 @@ export const mockTweet = getTweetApi();
 
 export const mockDataTweet: TweetData = {
   image: {} as File,
-  username: "",
-  alias: "",
   id: "",
   description: "",
   category: "",
   dateOfCreation: "",
+  visibilityOpen: false,
+  author: "",
 };

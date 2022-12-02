@@ -125,6 +125,7 @@ const useTweets = () => {
       await axios.post(requestsUrl.createTweet, tweetData, {
         headers: {
           Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
         },
       });
 

@@ -51,8 +51,8 @@ export interface TweetApi extends TweetStructure {
 
 export interface TweetData extends TweetStructure {
   image: File;
-  username: string;
-  alias: string;
+  visibilityOpen: boolean;
+  author: string;
 }
 export interface Tweet extends TweetStructure {
   username: string;
