@@ -27,7 +27,7 @@ jest.mock("react-router-dom", () => ({
   useNavigate: () => mockUseNavigate,
 }));
 
-describe("Given the custom hook useTweets", () => {
+describe("Given the loadTweets function", () => {
   describe("When loadTweets is called", () => {
     test("Then the dispatch should be called with loadTweetsActionCreator and loadPaginationActionCreator", async () => {
       const expectedTweets = parseTweetsApi(mockTweetsResponse.tweets);
@@ -72,7 +72,79 @@ describe("Given the custom hook useTweets", () => {
       );
     });
   });
+});
 
+describe("Given the getTweets function", () => {
+  describe("When loadTweetsByCategory is called with invalid token", () => {
+    test("Then the dispatch should be called with openAlertActionCreator", async () => {
+      const category = "sports";
+
+      const {
+        result: {
+          current: { getTweetsByCategory },
+        },
+      } = renderHook(() => useTweets(), {
+        wrapper: ProviderWrapper,
+      });
+      await getTweetsByCategory("invalid token", category);
+
+      expect(dispatch).toHaveBeenCalledWith(
+        openAlertActionCreator({
+          message: "Error to load tweets",
+          severity: "error",
+          isOpen: true,
+        })
+      );
+    });
+  });
+  describe("When loadTweetsByCategory is called with valid token and valid category", () => {
+    test("Then the dispatch should be called with loadTweetsActionCreator and loadPaginationActionCreator", async () => {
+      const expectedTweets = parseTweetsApi(mockTweetsResponse.tweets);
+      const category = "sports";
+      const {
+        result: {
+          current: { loadTweetsByCategory },
+        },
+      } = renderHook(() => useTweets(), {
+        wrapper: ProviderWrapper,
+      });
+
+      await loadTweetsByCategory(mockTokenMario, category, 5);
+
+      expect(dispatch).toHaveBeenCalledWith(
+        loadTweetsActionCreator(expectedTweets)
+      );
+      expect(dispatch).toHaveBeenCalledWith(
+        loadPaginationActionCreator({
+          currentPage: mockTweetsResponse.currentPage,
+          totalPages: mockTweetsResponse.totalPages,
+        })
+      );
+    });
+  });
+
+  describe("When loadTweetsByCategory is called with valid token and invalid category", () => {
+    test("Then the dispatch should be called with openAlertActionCreator", async () => {
+      const category = "invalid";
+      const {
+        result: {
+          current: { loadTweetsByCategory },
+        },
+      } = renderHook(() => useTweets(), {
+        wrapper: ProviderWrapper,
+      });
+
+      await loadTweetsByCategory(mockTokenMario, category, 5);
+
+      expect(dispatch).toHaveBeenCalledWith(
+        openAlertActionCreator({
+          message: "Error to load tweets",
+          severity: "error",
+          isOpen: true,
+        })
+      );
+    });
+  });
   describe("When getTweets is called with a valid token", () => {
     test("The dispatch should be called with 'addTweetsActionCreator' and 'loadPaginationActionCreator'", async () => {
       const expectedTweets = parseTweetsApi(mockTweetsResponse.tweets);
@@ -118,8 +190,30 @@ describe("Given the custom hook useTweets", () => {
         expect(dispatch).toBeCalledWith(expectedAction);
       });
     });
+  });
+  describe("When getTweets is called with a -1 page", () => {
+    test("The dispatch should be called with OpenAlertActionCreator", async () => {
+      const expectedAction = openAlertActionCreator({
+        message: "Error to load tweets",
+        severity: "error",
+        isOpen: true,
+      });
 
-    describe("When getTweets is called with a -1 page", () => {
+      const token = mockTokenMario;
+      const page = -1;
+
+      const {
+        result: {
+          current: { getTweets },
+        },
+      } = renderHook(() => useTweets(), { wrapper: ProviderWrapper });
+
+      await getTweets(token, page);
+
+      expect(dispatch).toBeCalledWith(expectedAction);
+    });
+
+    describe("When getTweets is called with a page greater than the total pages", () => {
       test("The dispatch should be called with OpenAlertActionCreator", async () => {
         const expectedAction = openAlertActionCreator({
           message: "Error to load tweets",
@@ -128,7 +222,7 @@ describe("Given the custom hook useTweets", () => {
         });
 
         const token = mockTokenMario;
-        const page = -1;
+        const page = 10;
 
         const {
           result: {
@@ -140,32 +234,233 @@ describe("Given the custom hook useTweets", () => {
 
         expect(dispatch).toBeCalledWith(expectedAction);
       });
+    });
+  });
+});
 
-      describe("When getTweets is called with a page greater than the total pages", () => {
-        test("The dispatch should be called with OpenAlertActionCreator", async () => {
-          const expectedAction = openAlertActionCreator({
-            message: "Error to load tweets",
-            severity: "error",
-            isOpen: true,
-          });
+describe("Given the loadTweetsByCategory function", () => {
+  describe("When loadTweetsByCategory is called with invalid token", () => {
+    test("Then the dispatch should be called with openAlertActionCreator", async () => {
+      const category = "sports";
 
-          const token = mockTokenMario;
-          const page = 10;
-
-          const {
-            result: {
-              current: { getTweets },
-            },
-          } = renderHook(() => useTweets(), { wrapper: ProviderWrapper });
-
-          await getTweets(token, page);
-
-          expect(dispatch).toBeCalledWith(expectedAction);
-        });
+      const {
+        result: {
+          current: { getTweetsByCategory },
+        },
+      } = renderHook(() => useTweets(), {
+        wrapper: ProviderWrapper,
       });
+      await getTweetsByCategory("invalid token", category);
+
+      expect(dispatch).toHaveBeenCalledWith(
+        openAlertActionCreator({
+          message: "Error to load tweets",
+          severity: "error",
+          isOpen: true,
+        })
+      );
+    });
+  });
+  describe("When loadTweetsByCategory is called with valid token and valid category", () => {
+    test("Then the dispatch should be called with loadTweetsActionCreator and loadPaginationActionCreator", async () => {
+      const expectedTweets = parseTweetsApi(mockTweetsResponse.tweets);
+      const category = "sports";
+      const {
+        result: {
+          current: { loadTweetsByCategory },
+        },
+      } = renderHook(() => useTweets(), {
+        wrapper: ProviderWrapper,
+      });
+
+      await loadTweetsByCategory(mockTokenMario, category, 5);
+
+      expect(dispatch).toHaveBeenCalledWith(
+        loadTweetsActionCreator(expectedTweets)
+      );
+      expect(dispatch).toHaveBeenCalledWith(
+        loadPaginationActionCreator({
+          currentPage: mockTweetsResponse.currentPage,
+          totalPages: mockTweetsResponse.totalPages,
+        })
+      );
     });
   });
 
+  describe("When loadTweetsByCategory is called with valid token and invalid category", () => {
+    test("Then the dispatch should be called with openAlertActionCreator", async () => {
+      const category = "invalid";
+      const {
+        result: {
+          current: { loadTweetsByCategory },
+        },
+      } = renderHook(() => useTweets(), {
+        wrapper: ProviderWrapper,
+      });
+
+      await loadTweetsByCategory(mockTokenMario, category, 5);
+
+      expect(dispatch).toHaveBeenCalledWith(
+        openAlertActionCreator({
+          message: "Error to load tweets",
+          severity: "error",
+          isOpen: true,
+        })
+      );
+    });
+  });
+});
+
+describe("Given the getTweetsByCategory function", () => {
+  describe("When loadTweetsByCategory is called with invalid token", () => {
+    test("Then the dispatch should be called with openAlertActionCreator", async () => {
+      const category = "sports";
+
+      const {
+        result: {
+          current: { getTweetsByCategory },
+        },
+      } = renderHook(() => useTweets(), {
+        wrapper: ProviderWrapper,
+      });
+      await getTweetsByCategory("invalid token", category);
+
+      expect(dispatch).toHaveBeenCalledWith(
+        openAlertActionCreator({
+          message: "Error to load tweets",
+          severity: "error",
+          isOpen: true,
+        })
+      );
+    });
+  });
+  describe("When loadTweetsByCategory is called with valid token and valid category", () => {
+    test("Then the dispatch should be called with loadTweetsActionCreator and loadPaginationActionCreator", async () => {
+      const expectedTweets = parseTweetsApi(mockTweetsResponse.tweets);
+      const category = "sports";
+      const {
+        result: {
+          current: { loadTweetsByCategory },
+        },
+      } = renderHook(() => useTweets(), {
+        wrapper: ProviderWrapper,
+      });
+
+      await loadTweetsByCategory(mockTokenMario, category, 5);
+
+      expect(dispatch).toHaveBeenCalledWith(
+        loadTweetsActionCreator(expectedTweets)
+      );
+      expect(dispatch).toHaveBeenCalledWith(
+        loadPaginationActionCreator({
+          currentPage: mockTweetsResponse.currentPage,
+          totalPages: mockTweetsResponse.totalPages,
+        })
+      );
+    });
+  });
+
+  describe("When loadTweetsByCategory is called with valid token and invalid category", () => {
+    test("Then the dispatch should be called with openAlertActionCreator", async () => {
+      const category = "invalid";
+      const {
+        result: {
+          current: { loadTweetsByCategory },
+        },
+      } = renderHook(() => useTweets(), {
+        wrapper: ProviderWrapper,
+      });
+
+      await loadTweetsByCategory(mockTokenMario, category, 5);
+
+      expect(dispatch).toHaveBeenCalledWith(
+        openAlertActionCreator({
+          message: "Error to load tweets",
+          severity: "error",
+          isOpen: true,
+        })
+      );
+    });
+  });
+
+  describe("When getTweetsByCategory is called with a valid token", () => {
+    test("The dispatch should be called with 'addTweetsActionCreator' and 'loadPaginationActionCreator'", async () => {
+      const category = "sports";
+
+      const expectedTweets = parseTweetsApi(mockTweetsResponse.tweets);
+      const expectedPagination = {
+        currentPage: mockTweetsResponse.currentPage,
+        totalPages: mockTweetsResponse.totalPages,
+      };
+
+      const expectedActionTweets = addTweetsActionCreator(expectedTweets);
+      const expectedActionPagination =
+        loadPaginationActionCreator(expectedPagination);
+
+      const token = mockTokenMario;
+      const {
+        result: {
+          current: { getTweetsByCategory },
+        },
+      } = renderHook(() => useTweets(), { wrapper: ProviderWrapper });
+
+      await getTweetsByCategory(token, category);
+
+      expect(dispatch).toBeCalledWith(expectedActionTweets);
+      expect(dispatch).toBeCalledWith(expectedActionPagination);
+    });
+  });
+
+  describe("When getTweetsByCategory is called with a -1 page", () => {
+    test("The dispatch should be called with OpenAlertActionCreator", async () => {
+      const category = "sports";
+      const expectedAction = openAlertActionCreator({
+        message: "Error to load tweets",
+        severity: "error",
+        isOpen: true,
+      });
+
+      const token = mockTokenMario;
+      const page = -1;
+
+      const {
+        result: {
+          current: { getTweetsByCategory },
+        },
+      } = renderHook(() => useTweets(), { wrapper: ProviderWrapper });
+
+      await getTweetsByCategory(token, category, page);
+
+      expect(dispatch).toBeCalledWith(expectedAction);
+    });
+
+    describe("When is called with a page greater than the total pages", () => {
+      test("The dispatch should be called with OpenAlertActionCreator", async () => {
+        const category = "sports";
+        const expectedAction = openAlertActionCreator({
+          message: "Error to load tweets",
+          severity: "error",
+          isOpen: true,
+        });
+
+        const token = mockTokenMario;
+        const page = 10;
+
+        const {
+          result: {
+            current: { getTweetsByCategory },
+          },
+        } = renderHook(() => useTweets(), { wrapper: ProviderWrapper });
+
+        await getTweetsByCategory(token, category, page);
+
+        expect(dispatch).toBeCalledWith(expectedAction);
+      });
+    });
+  });
+});
+
+describe("Given the getOneTweet function", () => {
   describe("When getOneTweet is called with a valid token", () => {
     test("The dispatch should be called with 'loadTweet'", async () => {
       const tweet = parseTweetApi(mockTweetApi);
@@ -182,7 +477,6 @@ describe("Given the custom hook useTweets", () => {
       expect(dispatch).toBeCalledWith(loadTweetActionCreator(tweet));
     });
   });
-
   describe("When getOneTweet is called with a invalid token", () => {
     test("The dispatch should be called with 'openAlertActionCreator'", async () => {
       const tweet = { ...mockTweetApi };
@@ -204,7 +498,9 @@ describe("Given the custom hook useTweets", () => {
       expect(dispatch).toBeCalledWith(expectedAction);
     });
   });
+});
 
+describe("Given the createTweet function", () => {
   describe("When createTweet is called with a valid token", () => {
     test("Then it should show call the navigate with '/'", async () => {
       const {
