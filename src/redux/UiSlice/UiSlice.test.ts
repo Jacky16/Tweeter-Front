@@ -7,6 +7,7 @@ import {
   loadPaginationActionCreator,
   openAlertActionCreator,
   openIsLoadingActionCreator,
+  resetPaginationActionCreator,
   uiReducer,
 } from "./UiSlice";
 
@@ -147,6 +148,28 @@ describe("Given the UiReducer", () => {
       const newState = uiReducer(initialState as UiState, action);
 
       expect(newState).toHaveProperty("categoryFilter", expectedCategory);
+    });
+  });
+
+  describe("When it receives a action resetPagination", () => {
+    test("Then should return the new state with pagination", () => {
+      const expectedPagination: Pagination = {
+        currentPage: 1,
+        totalPages: 0,
+      };
+
+      const initialState: Partial<UiState> = {
+        pagination: {
+          currentPage: 2,
+          totalPages: 2,
+        },
+      };
+
+      const action = resetPaginationActionCreator();
+
+      const newState = uiReducer(initialState as UiState, action);
+
+      expect(newState).toHaveProperty("pagination", expectedPagination);
     });
   });
 });
