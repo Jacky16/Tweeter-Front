@@ -45,6 +45,13 @@ const uiSlicer = createSlice({
       ...currentState,
       categoryFilter: action.payload,
     }),
+    resetPagination: (currentState) => ({
+      ...currentState,
+      pagination: {
+        currentPage: 1,
+        totalPages: 0,
+      },
+    }),
     openAlert: (
       currentState,
       action: PayloadAction<AlertActionPayloadAction>
@@ -69,4 +76,5 @@ export const {
   loadPagination: loadPaginationActionCreator,
   advancePagination: advancePaginationActionCreator,
   changeCategoryActionCreator: changeFilterCategoryActionCreator,
+  resetPagination: resetPaginationActionCreator,
 } = uiSlicer.actions;
