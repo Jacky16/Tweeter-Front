@@ -18,9 +18,6 @@ const AlertToast = ({ message, severity, isOpen }: AlertToastProps) => {
     event: React.SyntheticEvent | Event,
     reason?: string
   ) => {
-    if (reason === "clickaway") {
-      return;
-    }
     setOpen(isOpen);
     dispatch(closeAlertActionCreator());
   };
