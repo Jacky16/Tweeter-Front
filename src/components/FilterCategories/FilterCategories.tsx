@@ -3,7 +3,10 @@ import FormControl from "@mui/material/FormControl/FormControl";
 import MenuItem from "@mui/material/MenuItem/MenuItem";
 import Select, { SelectChangeEvent } from "@mui/material/Select/Select";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { changeFilterCategoryActionCreator } from "../../redux/UiSlice/UiSlice";
+import {
+  changeFilterCategoryActionCreator,
+  loadPaginationActionCreator,
+} from "../../redux/UiSlice/UiSlice";
 import { TweetCategory } from "../../types";
 
 const FilterCategories = () => {
@@ -12,6 +15,12 @@ const FilterCategories = () => {
 
   const handleChange = (event: SelectChangeEvent) => {
     dispatch(changeFilterCategoryActionCreator(event.target.value));
+    dispatch(
+      loadPaginationActionCreator({
+        currentPage: 1,
+        totalPages: 0,
+      })
+    );
   };
   const categories = Object.values(TweetCategory).filter(
     (category) => isNaN(+category) && category !== "unknown"
