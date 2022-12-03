@@ -34,27 +34,36 @@ const TweetCard = ({
         >
           <CardContent>
             <Grid container spacing={2}>
-              <Grid item container xs={12} columnGap={3}>
-                <Grid item xs={1}>
+              <Grid item container xs={12}>
+                <Grid item xs={2} sm={1}>
                   <Avatar />
                 </Grid>
-                <Grid item xs={4}>
-                  <Typography variant={"h6"} fontWeight={900} fontSize={16}>
-                    {alias}
-                  </Typography>
-                  <Typography variant={"subtitle1"}>{username}</Typography>
-                  <Typography variant={"subtitle2"} fontSize={12}>
-                    <TimeAgo datetime={dateOfCreation} live={true} />
-                  </Typography>
+                <Grid item xs={4} sm={6}>
+                  <Grid item>
+                    <Typography variant={"h6"} fontWeight={900} fontSize={16}>
+                      {alias}
+                    </Typography>
+                  </Grid>
+                  <Grid item>
+                    <Typography variant={"subtitle1"}>{username}</Typography>
+                  </Grid>
+                  <Grid item>
+                    <Typography variant={"subtitle2"} fontSize={12}>
+                      <TimeAgo datetime={dateOfCreation} live={true} />
+                    </Typography>
+                  </Grid>
                 </Grid>
-                <Grid item md={4}>
+
+                <Grid item xs={4} sm>
                   <Category category={categoryConverter(category)} />
                 </Grid>
+
                 <Grid
                   item
                   container
-                  xs={1}
-                  justifyContent={"center"}
+                  xs={2}
+                  sm={1}
+                  justifyContent={"end"}
                   alignItems={"start"}
                 >
                   <IconButton aria-label="Tweet Options">

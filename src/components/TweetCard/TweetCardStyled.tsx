@@ -1,8 +1,7 @@
 import styled from "styled-components";
 
 const TweetCardStyled = styled.article`
-  max-width: 538px;
-
+  width: 100%;
   img {
     object-fit: cover;
     border-radius: 2px;
