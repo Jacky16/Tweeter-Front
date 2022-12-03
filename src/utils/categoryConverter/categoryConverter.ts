@@ -12,6 +12,8 @@ const categoryConverter = (category: string): TweetCategory => {
       return TweetCategory.sports;
     case "entertainment":
       return TweetCategory.entertainment;
+    case "all":
+      return TweetCategory.all;
     default:
       return TweetCategory.unknown;
   }
