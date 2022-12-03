@@ -1,6 +1,7 @@
 import { AlertActionPayloadAction, Pagination, UiState } from "../types";
 import {
   advancePaginationActionCreator,
+  changeFilterCategoryActionCreator,
   closeAlertActionCreator,
   closeIsLoadingActionCreator,
   loadPaginationActionCreator,
@@ -130,6 +131,22 @@ describe("Given the UiReducer", () => {
       const newState = uiReducer(initialState as UiState, action);
 
       expect(newState).toHaveProperty("pagination", expectedPagination);
+    });
+  });
+
+  describe("When it receives a action to change category", () => {
+    test("Then should return the new state with category", () => {
+      const expectedCategory = "comedy";
+
+      const initialState: Partial<UiState> = {
+        categoryFilter: "all",
+      };
+
+      const action = changeFilterCategoryActionCreator(expectedCategory);
+
+      const newState = uiReducer(initialState as UiState, action);
+
+      expect(newState).toHaveProperty("categoryFilter", expectedCategory);
     });
   });
 });

@@ -12,6 +12,7 @@ const initialState: UiState = {
     message: "",
     severity: "info",
   },
+  categoryFilter: "all",
 };
 
 const uiSlicer = createSlice({
@@ -37,6 +38,13 @@ const uiSlicer = createSlice({
         currentPage: currentState.pagination.currentPage + 1,
       },
     }),
+    changeCategoryActionCreator: (
+      currentState,
+      action: PayloadAction<string>
+    ) => ({
+      ...currentState,
+      categoryFilter: action.payload,
+    }),
     openAlert: (
       currentState,
       action: PayloadAction<AlertActionPayloadAction>
@@ -60,4 +68,5 @@ export const {
   closeAlert: closeAlertActionCreator,
   loadPagination: loadPaginationActionCreator,
   advancePagination: advancePaginationActionCreator,
+  changeCategoryActionCreator: changeFilterCategoryActionCreator,
 } = uiSlicer.actions;
