@@ -38,11 +38,11 @@ const HomePage = () => {
       loadTweets(token, 5);
       return;
     }
-    if (categoryFilter === "all") {
-      getTweets(token, currentPage, 5);
-    } else {
+    if (categoryFilter !== "all") {
       getTweetsByCategory(token, categoryFilter, currentPage, 5);
+      return;
     }
+    getTweets(token, currentPage, 5);
   }, [
     categoryFilter,
     currentPage,
