@@ -1,5 +1,4 @@
 import { Container } from "@mui/material";
-import { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import useToken from "../../hooks/useToken/useToken";
 import DetailPage from "../../pages/TweetDetailPage/TweetDetailPage";
