@@ -1,5 +1,4 @@
 import { Container } from "@mui/material";
-import { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import useToken from "../../hooks/useToken/useToken";
 import DetailPage from "../../pages/TweetDetailPage/TweetDetailPage";
@@ -22,9 +21,7 @@ const App = () => {
 
   const isLogged = useAppSelector((state) => state.user.isLogged);
 
-  useEffect(() => {
-    getToken();
-  }, [getToken]);
+  getToken();
 
   return (
     <>

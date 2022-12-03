@@ -13,11 +13,10 @@ const HomePage = () => {
     pagination: { currentPage, totalPages },
     isLoading,
   } = useAppSelector((state) => state.ui);
-  const navigate = useNavigate();
-
-  const token = localStorage.getItem("token") as string;
-
+  const token = useAppSelector((state) => state.user.token);
   const tweets = useAppSelector((state) => state.tweets.tweets);
+
+  const navigate = useNavigate();
 
   const { getTweets, loadTweets } = useTweets();
 
@@ -30,9 +29,9 @@ const HomePage = () => {
   useEffect(() => {
     if (currentPage === 1) {
       loadTweets(token);
-    } else {
-      getTweets(token, currentPage);
+      return;
     }
+    getTweets(token, currentPage);
   }, [currentPage, getTweets, loadTweets, token]);
 
   return (
