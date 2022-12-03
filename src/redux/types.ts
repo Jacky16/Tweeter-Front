@@ -8,6 +8,7 @@ export interface UiState {
   isLoading: boolean;
   alert: AlertActionPayloadAction;
   pagination: Pagination;
+  categoryFilter: string;
 }
 
 export interface Pagination {
