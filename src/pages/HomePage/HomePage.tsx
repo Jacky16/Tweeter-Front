@@ -7,18 +7,21 @@ import useTweets from "../../hooks/useTweets/useTweets";
 import { useAppSelector } from "../../redux/hooks";
 import ChangeHistoryRoundedIcon from "@mui/icons-material/ChangeHistoryRounded";
 import { useNavigate } from "react-router-dom";
+import FilterSection from "../../components/FilterSection/FilterSection";
+import Divider from "@mui/material/Divider/Divider";
 
 const HomePage = () => {
   const {
     pagination: { currentPage, totalPages },
     isLoading,
+    categoryFilter,
   } = useAppSelector((state) => state.ui);
   const token = useAppSelector((state) => state.user.token);
   const tweets = useAppSelector((state) => state.tweets.tweets);
-
   const navigate = useNavigate();
 
-  const { getTweets, loadTweets } = useTweets();
+  const { getTweets, loadTweets, loadTweetsByCategory, getTweetsByCategory } =
+    useTweets();
 
   const isLastPage = currentPage === totalPages;
 
@@ -28,22 +31,43 @@ const HomePage = () => {
 
   useEffect(() => {
     if (currentPage === 1) {
-      loadTweets(token);
+      if (categoryFilter !== "all") {
+        loadTweetsByCategory(token, categoryFilter, 5);
+        return;
+      }
+      loadTweets(token, 5);
       return;
     }
-    getTweets(token, currentPage);
-  }, [currentPage, getTweets, loadTweets, token]);
+    if (categoryFilter === "all") {
+      getTweets(token, currentPage, 5);
+    } else {
+      getTweetsByCategory(token, categoryFilter, currentPage, 5);
+    }
+  }, [
+    categoryFilter,
+    currentPage,
+    getTweets,
+    getTweetsByCategory,
+    loadTweets,
+    loadTweetsByCategory,
+    token,
+  ]);
 
   return (
     <>
       <Grid
-        container
-        direction="column"
         justifyContent="center"
         alignItems="center"
-        spacing={4}
         paddingY={4}
+        container
+        spacing={3}
       >
+        <Grid item xs={12}>
+          <FilterSection />
+        </Grid>
+        <Grid item xs={12}>
+          <Divider />
+        </Grid>
         <Grid item xs={12}>
           <TweetCardList tweets={tweets} />
         </Grid>
@@ -66,7 +90,7 @@ const HomePage = () => {
           alignItems: "center",
           position: "fixed",
           bottom: 48,
-          right: 48,
+          right: 32,
           padding: 1,
         }}
       >

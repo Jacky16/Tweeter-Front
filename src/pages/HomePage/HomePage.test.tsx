@@ -22,36 +22,6 @@ jest.mock("react-router-dom", () => ({
 }));
 
 describe("Given the HomePage component", () => {
-  describe("When it is rendered", () => {
-    test("Then should match the snapshot", () => {
-      const { container } = renderWithProviders(<HomePage />);
-      expect(container).toMatchSnapshot();
-    });
-
-    describe("And the current page is 1", () => {
-      test("Then loadTweets should be called", () => {
-        renderWithProviders(<HomePage />);
-
-        expect(mockLoadTweets).toBeCalled();
-      });
-    });
-    describe("When the currenPage is 2", () => {
-      test("Then should getTweets of useTweets should be called", () => {
-        const mockUiState: Partial<UiState> = {
-          pagination: {
-            currentPage: 2,
-            totalPages: 3,
-          },
-        };
-        const store = mockStore({ uiPreloadState: mockUiState as UiState });
-
-        renderWithProviders(<HomePage />, { store });
-
-        expect(mockGetTweets).toHaveBeenCalled();
-      });
-    });
-  });
-
   describe("When the user click the FAB to create a tweet", () => {
     test("Then should navigate to be called with /create", async () => {
       const fabName = "Add tweet";
