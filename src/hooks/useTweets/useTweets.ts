@@ -23,14 +23,14 @@ const useTweets = () => {
   const dispatch = useAppDispatch();
 
   const loadTweets = useCallback(
-    async (token: string) => {
+    async (token: string, limit?: number) => {
       dispatch(openIsLoadingActionCreator());
       try {
         const response = await axios.get<TweetsResponse>(
           requestsUrl.getTweets,
 
           {
-            params: { page: 1 },
+            params: { page: 1, limit },
             headers: {
               Authorization: `Bearer ${token}`,
             },
@@ -38,9 +38,8 @@ const useTweets = () => {
         );
         const { tweets, currentPage, totalPages } = response.data;
 
-        dispatch(loadTweetsActionCreator(parseTweetsApi(tweets)));
         dispatch(loadPaginationActionCreator({ currentPage, totalPages }));
-
+        dispatch(loadTweetsActionCreator(parseTweetsApi(tweets)));
         dispatch(closeIsLoadingActionCreator());
       } catch (error) {
         dispatch(
@@ -66,6 +65,75 @@ const useTweets = () => {
             Authorization: `Bearer ${token}`,
           },
         });
+
+        const { tweets, currentPage, totalPages } =
+          (await response.data) as TweetsResponse;
+
+        dispatch(addTweetsActionCreator(parseTweetsApi(tweets)));
+        dispatch(loadPaginationActionCreator({ currentPage, totalPages }));
+        dispatch(closeIsLoadingActionCreator());
+      } catch (error: unknown) {
+        dispatch(
+          openAlertActionCreator({
+            message: "Error to load tweets",
+            severity: "error",
+            isOpen: true,
+          })
+        );
+
+        dispatch(closeIsLoadingActionCreator());
+      }
+    },
+    [dispatch]
+  );
+
+  const loadTweetsByCategory = useCallback(
+    async (token: string, category: string, limit?: number) => {
+      dispatch(openIsLoadingActionCreator());
+      try {
+        const response = await axios.get<TweetsResponse>(
+          `${requestsUrl.getTweetByCategory}/${category}`,
+          {
+            params: { page: 1, limit },
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        const { tweets, currentPage, totalPages } = response.data;
+
+        dispatch(loadPaginationActionCreator({ currentPage, totalPages }));
+        dispatch(loadTweetsActionCreator(parseTweetsApi(tweets)));
+        dispatch(closeIsLoadingActionCreator());
+      } catch (error) {
+        dispatch(
+          openAlertActionCreator({
+            message: "Error to load tweets",
+            severity: "error",
+            isOpen: true,
+          })
+        );
+
+        dispatch(closeIsLoadingActionCreator());
+      }
+    },
+    [dispatch]
+  );
+
+  const getTweetsByCategory = useCallback(
+    async (token: string, category: string, page = 1, limit = 5) => {
+      dispatch(openIsLoadingActionCreator());
+      try {
+        const response = await axios.get(
+          `${requestsUrl.getTweetByCategory}/${category}`,
+          {
+            params: { page, limit },
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
         const { tweets, currentPage, totalPages } =
           (await response.data) as TweetsResponse;
@@ -114,6 +182,7 @@ const useTweets = () => {
             isOpen: true,
           })
         );
+
         dispatch(closeIsLoadingActionCreator());
       }
     },
@@ -140,6 +209,14 @@ const useTweets = () => {
       );
     }
   };
-  return { getTweets, getOneTweet, loadTweets, createTweet };
+
+  return {
+    getTweets,
+    getOneTweet,
+    loadTweets,
+    createTweet,
+    loadTweetsByCategory,
+    getTweetsByCategory,
+  };
 };
 export default useTweets;
