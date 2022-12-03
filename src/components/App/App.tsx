@@ -22,9 +22,7 @@ const App = () => {
 
   const isLogged = useAppSelector((state) => state.user.isLogged);
 
-  useEffect(() => {
-    getToken();
-  }, [getToken]);
+  getToken();
 
   return (
     <>
