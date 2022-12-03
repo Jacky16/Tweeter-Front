@@ -27,6 +27,7 @@ export interface JwtPayloadCustom {
 }
 
 export enum TweetCategory {
+  all,
   comedy,
   science,
   political,
