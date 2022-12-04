@@ -7,8 +7,12 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import Stack from "@mui/material/Stack/Stack";
 import useTweets from "../../hooks/useTweets/useTweets";
 import { useAppSelector } from "../../redux/hooks";
+import EditIcon from "@mui/icons-material/Edit";
 
-const options = ["Delete"];
+const options = [
+  { action: "Delete", icon: <DeleteIcon /> },
+  { action: "Edit", icon: <EditIcon /> },
+];
 const ITEM_HEIGHT = 48;
 
 interface TweetCardOptionsProps {
@@ -71,12 +75,12 @@ const TweetCardOptions = ({ tweetId }: TweetCardOptionsProps) => {
       >
         {options.map((option) => (
           <MenuItem
-            key={option}
-            onClick={(event) => handleClose(event, option.toLowerCase())}
+            key={option.action}
+            onClick={(event) => handleClose(event, option.action.toLowerCase())}
           >
             <Stack direction={"row"} gap={1}>
-              <DeleteIcon />
-              {option}
+              {option.icon}
+              {option.action}
             </Stack>
           </MenuItem>
         ))}
