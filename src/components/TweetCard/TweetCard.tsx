@@ -5,20 +5,23 @@ import CardContent from "@mui/material/CardContent/CardContent";
 import Divider from "@mui/material/Divider/Divider";
 import Grid from "@mui/material/Grid/Grid";
 import Typography from "@mui/material/Typography/Typography";
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { Tweet } from "../../types";
 import Category from "../Category/Category";
 import TweetCardStyled from "./TweetCardStyled";
-import IconButton from "@mui/material/IconButton/IconButton";
 import categoryConverter from "../../utils/categoryConverter/categoryConverter";
 import { useNavigate } from "react-router-dom";
 import TimeAgo from "timeago-react";
+import { useAppSelector } from "../../redux/hooks";
+import TweetCardOptions from "../TweetCardOptions/TweetCardOptions";
 interface TweetCardProps {
   tweet: Tweet;
 }
 const TweetCard = ({
   tweet: { alias, category, dateOfCreation, username, description, image, id },
 }: TweetCardProps) => {
+  const isAuthorOfTweet =
+    useAppSelector((state) => state.user.username) === username;
+
   const navigate = useNavigate();
   const handleClick = () => {
     navigate(`/tweet/${id}`);
@@ -54,22 +57,26 @@ const TweetCard = ({
                   </Grid>
                 </Grid>
 
-                <Grid item xs={4} sm>
+                <Grid
+                  item
+                  xs={isAuthorOfTweet ? 4 : 6}
+                  sm={isAuthorOfTweet ? 4 : 5}
+                >
                   <Category category={categoryConverter(category)} />
                 </Grid>
 
-                <Grid
-                  item
-                  container
-                  xs={2}
-                  sm={1}
-                  justifyContent={"end"}
-                  alignItems={"start"}
-                >
-                  <IconButton aria-label="Tweet Options">
-                    <MoreHorizIcon />
-                  </IconButton>
-                </Grid>
+                {isAuthorOfTweet && (
+                  <Grid
+                    item
+                    container
+                    xs={2}
+                    sm={1}
+                    justifyContent={"end"}
+                    alignItems={"start"}
+                  >
+                    <TweetCardOptions tweetId={id} />
+                  </Grid>
+                )}
               </Grid>
 
               <Grid item xs={12}>

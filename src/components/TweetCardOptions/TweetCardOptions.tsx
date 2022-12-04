@@ -31,7 +31,7 @@ const TweetCardOptions = ({ tweetId }: TweetCardOptionsProps) => {
 
     switch (option) {
       case "delete":
-        deleteTweet(tweetId, token);
+        deleteTweet(token, tweetId);
         break;
     }
   };
