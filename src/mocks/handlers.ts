@@ -83,6 +83,7 @@ export const handlers = [
       );
     }
   ),
+
   rest.get(
     `${requestsUrl.getTweetByCategory}/invalid`,
     async (req, res, ctx) => {
@@ -114,4 +115,17 @@ export const handlers = [
 
     return res(ctx.status(201), ctx.json({ tweet: tweetCreated }));
   }),
+
+  rest.delete(
+    `${requestsUrl.deleteTweet}/${mockTweet.id}`,
+    async (req, res, ctx) => {
+      const token = req.headers.get("Authorization");
+
+      if (token !== `Bearer ${mockTokenMario}`) {
+        return res(ctx.status(401), ctx.json({ error: "Invalid token" }));
+      }
+
+      return res(ctx.status(200), ctx.json({ tweet: mockTweet }));
+    }
+  ),
 ];

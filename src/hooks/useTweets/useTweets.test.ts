@@ -9,6 +9,7 @@ import { mockTokenMario } from "../../mocks/userMocks";
 import { store } from "../../redux/store";
 import {
   addTweetsActionCreator,
+  deleteTweetActionCreator,
   loadTweetActionCreator,
   loadTweetsActionCreator,
 } from "../../redux/tweetsSlice/tweetsSlice";
@@ -532,6 +533,43 @@ describe("Given the createTweet function", () => {
           isOpen: true,
         })
       );
+    });
+  });
+});
+
+describe("Given the deleteTweet function", () => {
+  describe("When deleteTweet is called with a valid token", () => {
+    test("Then it should show call dispatch with deleteTweet action with the id", async () => {
+      const expectedAction = deleteTweetActionCreator(mockTweetApi.id);
+
+      const {
+        result: {
+          current: { deleteTweet },
+        },
+      } = renderHook(() => useTweets(), { wrapper: ProviderWrapper });
+
+      await deleteTweet(mockTokenMario, mockTweetApi.id);
+
+      expect(dispatch).toHaveBeenCalledWith(expectedAction);
+    });
+  });
+
+  describe("When deleteTweet is called with a invalid token", () => {
+    test("Then dispatch should be called with 'openAlertActionCreator'", async () => {
+      const expectedAction = openAlertActionCreator({
+        message: "Error to delete tweet",
+        severity: "error",
+        isOpen: true,
+      });
+      const {
+        result: {
+          current: { deleteTweet },
+        },
+      } = renderHook(() => useTweets(), { wrapper: ProviderWrapper });
+
+      await deleteTweet("123", mockTweetApi.id);
+
+      expect(dispatch).toBeCalledWith(expectedAction);
     });
   });
 });
