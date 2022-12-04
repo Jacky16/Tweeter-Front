@@ -1,6 +1,8 @@
 import { screen } from "@testing-library/react";
 import { getTweet } from "../../factory/tweetsFactory";
 import { renderWithProviders } from "../../mocks/renderWithProviders";
+import mockUserLogged from "../../mocks/states/mockUserLogged";
+import mockStore from "../../mocks/store/mockStore";
 import TweetCard from "./TweetCard";
 
 const mockNavigate = jest.fn();
@@ -39,6 +41,24 @@ describe("Given a TweetCard component", () => {
         tweetCard.click();
 
         expect(mockNavigate).toHaveBeenCalledWith(`/tweet/${tweet.id}`);
+      });
+    });
+
+    describe("And the user is the author of the tweet", () => {
+      test("Then the Tweet Options should be displayed", () => {
+        const nameTweetOption = "Tweet Options";
+
+        const tweet = getTweet();
+        const store = mockStore({
+          userPreloadState: { ...mockUserLogged, username: tweet.username },
+        });
+        renderWithProviders(<TweetCard tweet={tweet} />, { store });
+
+        const deleteButton = screen.getByRole("button", {
+          name: nameTweetOption,
+        });
+
+        expect(deleteButton).toBeInTheDocument();
       });
     });
   });
