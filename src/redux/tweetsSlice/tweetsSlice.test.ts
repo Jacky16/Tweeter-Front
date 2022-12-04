@@ -3,6 +3,7 @@ import { Tweet } from "../../types";
 import { TweetState } from "../types";
 import {
   addTweetsActionCreator,
+  deleteTweetActionCreator,
   loadTweetActionCreator,
   loadTweetsActionCreator,
   tweetsReducer,
@@ -72,4 +73,27 @@ describe("Given the tweetsReducer", () => {
       expect(newState).toEqual(expectedState);
     });
   });
+
+  describe("When receives a action 'deleteTweet'", () => {
+    test("Then should return a new state with the tweets without the deleted tweet", () => {
+      const tweets = getTweets(5);
+      const tweetToDelete = tweets[0];
+
+      const initialState: TweetState = {
+        tweets,
+        tweet: {} as Tweet,
+      };
+
+      const action = deleteTweetActionCreator(tweetToDelete.id);
+
+      const expectedState: TweetState = {
+        tweets: tweets.filter((tweet) => tweet.id !== tweetToDelete.id),
+        tweet: {} as Tweet,
+      };
+
+      const newState = tweetsReducer(initialState, action);
+
+      expect(newState).toEqual(expectedState);
+    });
+  }); 
 });

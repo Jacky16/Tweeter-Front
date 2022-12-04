@@ -23,6 +23,12 @@ const twitterSlice = createSlice({
       ...currentState,
       tweets: [...currentState.tweets, ...action.payload],
     }),
+    deleteTweet: (currentState, action: PayloadAction<string>) => ({
+      ...currentState,
+      tweets: [
+        ...currentState.tweets.filter((tweet) => tweet.id !== action.payload),
+      ],
+    }),
   },
 });
 
@@ -31,4 +37,5 @@ export const {
   loadTweets: loadTweetsActionCreator,
   loadTweet: loadTweetActionCreator,
   addTweets: addTweetsActionCreator,
+  deleteTweet: deleteTweetActionCreator,
 } = twitterSlice.actions;
