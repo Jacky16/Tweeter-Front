@@ -10,6 +10,7 @@ const requestsUrl = {
   getOneTweet: `${apiUrl}/tweets`,
   createTweet: `${apiUrl}/tweets/create`,
   deleteTweet: `${apiUrl}/tweets/delete`,
+  updateTweet: `${apiUrl}/tweets/update`,
 };
 
 export default requestsUrl;

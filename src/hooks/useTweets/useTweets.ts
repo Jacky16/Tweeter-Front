@@ -8,6 +8,7 @@ import {
   deleteTweetActionCreator,
   loadTweetActionCreator,
   loadTweetsActionCreator,
+  updateTweetActionCreator,
 } from "../../redux/tweetsSlice/tweetsSlice";
 import {
   closeIsLoadingActionCreator,
@@ -238,6 +239,42 @@ const useTweets = () => {
     }
   };
 
+  const updateTweet = async (token: string, tweetData: TweetData) => {
+    try {
+      const response = await axios.patch(
+        `${requestsUrl.updateTweet}/${tweetData.id}`,
+        tweetData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      const { tweet } = await response.data;
+
+      dispatch(updateTweetActionCreator(parseTweetApi(tweet)));
+      dispatch(
+        openAlertActionCreator({
+          message: "Tweet updated",
+          severity: "success",
+          isOpen: true,
+        })
+      );
+
+      navigate("/");
+    } catch (error: unknown) {
+      dispatch(
+        openAlertActionCreator({
+          message: "Error to update tweet",
+          severity: "error",
+          isOpen: true,
+        })
+      );
+    }
+  };
+
   return {
     getTweets,
     getOneTweet,
@@ -246,6 +283,7 @@ const useTweets = () => {
     loadTweetsByCategory,
     getTweetsByCategory,
     deleteTweet,
+    updateTweet,
   };
 };
 export default useTweets;
