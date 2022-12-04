@@ -1,5 +1,6 @@
 import { getTweetApi, getTweetsApi } from "../../factory/tweetsFactory";
 import { TweetData } from "../../types";
+import { parseTweetApi } from "../../utils/parseTweetApi";
 
 export const mockTweetsResponse = {
   tweets: getTweetsApi(10),
@@ -7,14 +8,16 @@ export const mockTweetsResponse = {
   totalPages: 2,
 };
 
-export const mockTweet = getTweetApi();
+export const mockTweetApi = getTweetApi();
+
+export const mockTweet = parseTweetApi(mockTweetApi);
 
 export const mockDataTweet: TweetData = {
   image: {} as File,
-  id: "",
-  description: "",
-  category: "",
-  dateOfCreation: "",
+  id: mockTweet.id,
+  description: "asdfg",
+  category: "sports",
+  dateOfCreation: "1111",
   visibilityOpen: false,
-  author: "",
+  author: "111111",
 };
