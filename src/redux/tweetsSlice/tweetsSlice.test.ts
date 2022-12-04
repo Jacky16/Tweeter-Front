@@ -7,6 +7,7 @@ import {
   loadTweetActionCreator,
   loadTweetsActionCreator,
   tweetsReducer,
+  updateTweetActionCreator,
 } from "./tweetsSlice";
 
 describe("Given the tweetsReducer", () => {
@@ -95,5 +96,33 @@ describe("Given the tweetsReducer", () => {
 
       expect(newState).toEqual(expectedState);
     });
-  }); 
+  });
+
+  describe("When receives a action 'updateTweet'", () => {
+    test("Then should return a new state with the tweets updated", () => {
+      const tweets = getTweets(2);
+
+      const tweetPayload = { ...tweets[0], description: "new description" };
+
+      const initialState: TweetState = {
+        tweets,
+        tweet: {} as Tweet,
+      };
+
+      const action = updateTweetActionCreator(tweetPayload);
+
+      const expectedState: TweetState = {
+        tweets: [
+          ...tweets.map((tweet) =>
+            tweet.id === tweetPayload.id ? tweetPayload : tweet
+          ),
+        ],
+        tweet: {} as Tweet,
+      };
+
+      const newState = tweetsReducer(initialState, action);
+
+      expect(newState).toStrictEqual(expectedState);
+    });
+  });
 });
