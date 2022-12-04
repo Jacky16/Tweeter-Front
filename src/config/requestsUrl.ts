@@ -9,6 +9,7 @@ const requestsUrl = {
   getTweetByCategory: `${apiUrl}/tweets/category`,
   getOneTweet: `${apiUrl}/tweets`,
   createTweet: `${apiUrl}/tweets/create`,
+  deleteTweet: `${apiUrl}/tweets/delete`,
 };
 
 export default requestsUrl;

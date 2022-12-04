@@ -5,6 +5,7 @@ import requestsUrl from "../../config/requestsUrl";
 import { useAppDispatch } from "../../redux/hooks";
 import {
   addTweetsActionCreator,
+  deleteTweetActionCreator,
   loadTweetActionCreator,
   loadTweetsActionCreator,
 } from "../../redux/tweetsSlice/tweetsSlice";
@@ -210,6 +211,33 @@ const useTweets = () => {
     }
   };
 
+  const deleteTweet = async (token: string, idTweet: string) => {
+    try {
+      await axios.delete(`${requestsUrl.deleteTweet}/${idTweet}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      dispatch(deleteTweetActionCreator(idTweet));
+      dispatch(
+        openAlertActionCreator({
+          message: "Tweet deleted",
+          severity: "success",
+          isOpen: true,
+        })
+      );
+    } catch (error: unknown) {
+      dispatch(
+        openAlertActionCreator({
+          message: "Error to delete tweet",
+          severity: "error",
+          isOpen: true,
+        })
+      );
+    }
+  };
+
   return {
     getTweets,
     getOneTweet,
@@ -217,6 +245,7 @@ const useTweets = () => {
     createTweet,
     loadTweetsByCategory,
     getTweetsByCategory,
+    deleteTweet,
   };
 };
 export default useTweets;
