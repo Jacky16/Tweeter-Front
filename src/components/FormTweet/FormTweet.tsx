@@ -11,34 +11,53 @@ import {
 import Grid from "@mui/material/Grid/Grid";
 import Paper from "@mui/material/Paper/Paper";
 import Typography from "@mui/material/Typography/Typography";
-import React, { ChangeEvent } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import useTweets from "../../hooks/useTweets/useTweets";
 import { useAppSelector } from "../../redux/hooks";
 import { TweetData } from "../../types";
 import ImageIcon from "@mui/icons-material/Image";
 import PrimaryButton from "../PrimaryButton/PrimaryButton";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-const defaultTweet: Partial<TweetData> = {
-  category: "comedy",
-  description: "",
-  visibilityOpen: true,
-};
+const maxTweetLength = 280;
 
-const FormTweet = () => {
-  const maxTweetLength = 280;
-
+interface FormTweetProps {
+  isEditMode?: boolean;
+}
+const FormTweet = ({ isEditMode = false }: FormTweetProps) => {
   const { id, token } = useAppSelector((state) => state.user);
+  const { tweet } = useAppSelector((state) => state.tweets);
 
-  const [tweetData, setTweetData] = React.useState<TweetData>(
-    defaultTweet as TweetData
-  );
-  const [imagePreviewUrl, setImagePreviewUrl] = React.useState("");
-  const [progress, setProgress] = React.useState(0);
-
-  const { createTweet } = useTweets();
-
+  const { createTweet, getOneTweet, updateTweet } = useTweets();
+  const { idTweet } = useParams();
   const navigate = useNavigate();
+
+  const [progress, setProgress] = useState(0);
+  const [imagePreviewUrl, setImagePreviewUrl] = useState("");
+  const [tweetData, setTweetData] = useState<TweetData>({
+    category: "comedy",
+    description: "",
+    visibilityOpen: true,
+  } as TweetData);
+
+  useEffect(() => {
+    if (isEditMode) {
+      getOneTweet(token, idTweet!);
+    }
+  }, [isEditMode, getOneTweet, idTweet, token]);
+
+  useEffect(() => {
+    if (isEditMode) {
+      const defaultTweetData: Partial<TweetData> = {
+        category: tweet?.category,
+        description: tweet?.description,
+        id: tweet.id,
+      };
+
+      setTweetData(defaultTweetData as TweetData);
+      setImagePreviewUrl(tweet.image);
+    }
+  }, [isEditMode, tweet]);
 
   const handleDataTweet = (
     event:
@@ -70,9 +89,11 @@ const FormTweet = () => {
     const url = URL.createObjectURL(files[0]);
     setImagePreviewUrl(url);
   };
+
   const handleCancel = () => {
     navigate("/");
   };
+
   const errorColor = () => {
     if (progress >= 100) {
       return "error";
@@ -82,21 +103,21 @@ const FormTweet = () => {
       return "primary";
     }
   };
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (!isEditMode) {
+      createTweet(token, tweetData);
+      return;
+    }
+    updateTweet(token, { ...tweetData });
+  };
+
   return (
     <Grid container spacing={2}>
       <Grid item xs={12}>
-        <Typography variant="h1" fontSize={38} fontWeight={900}>
-          Tweet something
-        </Typography>
-      </Grid>
-      <Grid item xs={12}>
         <Paper sx={{ padding: 2 }}>
-          <form
-            onSubmit={(event) => {
-              event.preventDefault();
-              createTweet(token, tweetData);
-            }}
-          >
+          <form onSubmit={handleSubmit}>
             <Grid container item xs={12} rowGap={2}>
               <Grid container item xs={12}>
                 <Grid item xs={2} sm={1}>
@@ -110,6 +131,7 @@ const FormTweet = () => {
                     focused
                     multiline={true}
                     placeholder="What's happening?"
+                    value={tweetData.description}
                     error={progress >= 100}
                     helperText={
                       progress >= 100

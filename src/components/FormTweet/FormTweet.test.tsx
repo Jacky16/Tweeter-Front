@@ -2,7 +2,7 @@ import { faker } from "@faker-js/faker";
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { renderWithProviders } from "../../mocks/renderWithProviders";
-import FormCreateTweet from "./FormCreateTweet";
+import FormCreateTweet from "./FormTweet";
 jest.setTimeout(100000);
 
 const mockCreateTweet = jest.fn();

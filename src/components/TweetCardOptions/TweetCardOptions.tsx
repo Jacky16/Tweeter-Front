@@ -8,6 +8,7 @@ import Stack from "@mui/material/Stack/Stack";
 import useTweets from "../../hooks/useTweets/useTweets";
 import { useAppSelector } from "../../redux/hooks";
 import EditIcon from "@mui/icons-material/Edit";
+import { useNavigate } from "react-router-dom";
 
 const options = [
   { action: "Delete", icon: <DeleteIcon /> },
@@ -20,6 +21,7 @@ interface TweetCardOptionsProps {
 }
 const TweetCardOptions = ({ tweetId }: TweetCardOptionsProps) => {
   const token = useAppSelector((state) => state.user.token);
+  const navigate = useNavigate();
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -36,6 +38,9 @@ const TweetCardOptions = ({ tweetId }: TweetCardOptionsProps) => {
     switch (option) {
       case "delete":
         deleteTweet(token, tweetId);
+        break;
+      case "edit":
+        navigate(`/edit/${tweetId}`);
         break;
     }
   };
