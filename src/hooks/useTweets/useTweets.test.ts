@@ -2,7 +2,8 @@ import { renderHook } from "@testing-library/react";
 import ProviderWrapper from "../../mocks/providerWrapper";
 import {
   mockDataTweet,
-  mockTweet as mockTweetApi,
+  mockTweet,
+  mockTweetApi,
   mockTweetsResponse,
 } from "../../mocks/tweets/tweetsMock";
 import { mockTokenMario } from "../../mocks/userMocks";
@@ -12,6 +13,7 @@ import {
   deleteTweetActionCreator,
   loadTweetActionCreator,
   loadTweetsActionCreator,
+  updateTweetActionCreator,
 } from "../../redux/tweetsSlice/tweetsSlice";
 import {
   loadPaginationActionCreator,
@@ -568,6 +570,43 @@ describe("Given the deleteTweet function", () => {
       } = renderHook(() => useTweets(), { wrapper: ProviderWrapper });
 
       await deleteTweet("123", mockTweetApi.id);
+
+      expect(dispatch).toBeCalledWith(expectedAction);
+    });
+  });
+});
+
+describe("Given the updateTweet function", () => {
+  describe("When updateTweet is called with a valid token", () => {
+    test("Then it should show call dispatch with updateTweet action with the id", async () => {
+      const expectedAction = updateTweetActionCreator(mockTweet);
+
+      const {
+        result: {
+          current: { updateTweet },
+        },
+      } = renderHook(() => useTweets(), { wrapper: ProviderWrapper });
+
+      await updateTweet(mockTokenMario, mockDataTweet);
+
+      expect(dispatch).toHaveBeenCalledWith(expectedAction);
+    });
+  });
+
+  describe("When updateTweet is called with a invalid token", () => {
+    test("Then dispatch should be called with 'openAlertActionCreator'", async () => {
+      const expectedAction = openAlertActionCreator({
+        message: "Error to update tweet",
+        severity: "error",
+        isOpen: true,
+      });
+      const {
+        result: {
+          current: { updateTweet },
+        },
+      } = renderHook(() => useTweets(), { wrapper: ProviderWrapper });
+
+      await updateTweet("123", mockDataTweet);
 
       expect(dispatch).toBeCalledWith(expectedAction);
     });

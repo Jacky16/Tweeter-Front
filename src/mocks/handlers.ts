@@ -2,7 +2,7 @@ import { rest } from "msw";
 import requestsUrl from "../config/requestsUrl";
 import { getTweetApi } from "../factory/tweetsFactory";
 import { UserLoginData, UserRegisterData } from "../types";
-import { mockTweet, mockTweetsResponse } from "./tweets/tweetsMock";
+import { mockTweetApi, mockTweetsResponse } from "./tweets/tweetsMock";
 import { mockTokenMario } from "./userMocks";
 
 export const handlers = [
@@ -92,11 +92,11 @@ export const handlers = [
   ),
 
   rest.get(
-    `${requestsUrl.getOneTweet}/${mockTweet.id}`,
+    `${requestsUrl.getOneTweet}/${mockTweetApi.id}`,
     async (req, res, ctx) => {
       const token = req.headers.get("Authorization");
 
-      const tweet = { ...mockTweet };
+      const tweet = { ...mockTweetApi };
 
       if (token !== `Bearer ${mockTokenMario}`) {
         return res(ctx.status(401), ctx.json({ error: "Invalid token" }));
@@ -117,7 +117,7 @@ export const handlers = [
   }),
 
   rest.delete(
-    `${requestsUrl.deleteTweet}/${mockTweet.id}`,
+    `${requestsUrl.deleteTweet}/${mockTweetApi.id}`,
     async (req, res, ctx) => {
       const token = req.headers.get("Authorization");
 
@@ -125,7 +125,20 @@ export const handlers = [
         return res(ctx.status(401), ctx.json({ error: "Invalid token" }));
       }
 
-      return res(ctx.status(200), ctx.json({ tweet: mockTweet }));
+      return res(ctx.status(200), ctx.json({ tweet: mockTweetApi }));
+    }
+  ),
+
+  rest.patch(
+    `${requestsUrl.updateTweet}/${mockTweetApi.id}`,
+    async (req, res, ctx) => {
+      const token = req.headers.get("Authorization");
+
+      if (token !== `Bearer ${mockTokenMario}`) {
+        return res(ctx.status(401), ctx.json({ error: "Invalid token" }));
+      }
+
+      return res(ctx.status(200), ctx.json({ tweet: mockTweetApi }));
     }
   ),
 ];
