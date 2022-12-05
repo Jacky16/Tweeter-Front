@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 import TimeAgo from "timeago-react";
 import { useAppSelector } from "../../redux/hooks";
 import TweetCardOptions from "../TweetCardOptions/TweetCardOptions";
+import getUrlProfileAvatar from "../../utils/getProfileAvatar";
 interface TweetCardProps {
   tweet: Tweet;
 }
@@ -37,9 +38,12 @@ const TweetCard = ({
         >
           <CardContent>
             <Grid container spacing={2}>
-              <Grid item container xs={12}>
+              <Grid item container xs={12} alignItems={"start"}>
                 <Grid item xs={2} sm={1}>
-                  <Avatar />
+                  <Avatar
+                    src={getUrlProfileAvatar(username)}
+                    sx={{ width: 56, height: 56 }}
+                  />
                 </Grid>
                 <Grid item xs={4} sm={6}>
                   <Grid item>

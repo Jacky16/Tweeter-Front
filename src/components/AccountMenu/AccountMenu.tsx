@@ -11,9 +11,11 @@ import React from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { userLogoutActionCreator } from "../../redux/userSlice/userSlice";
 import useToken from "../../hooks/useToken/useToken";
+import getUrlProfileAvatar from "../../utils/getProfileAvatar";
+import Stack from "@mui/material/Stack/Stack";
 
 const AccountMenu = () => {
-  const alias = useAppSelector((state) => state.user.alias);
+  const { alias, username } = useAppSelector((state) => state.user);
 
   const dispatch = useAppDispatch();
   const { removeToken } = useToken();
@@ -52,8 +54,12 @@ const AccountMenu = () => {
           aria-haspopup="true"
           aria-expanded={open ? "true" : undefined}
         >
-          <Avatar />
-          <Typography fontSize={14}>{alias}</Typography>
+          <Stack direction={"row"} alignItems={"center"}>
+            <Avatar src={getUrlProfileAvatar(username)} />
+            <Typography fontSize={14} height={"100%"}>
+              {alias}
+            </Typography>
+          </Stack>
         </Button>
       </Tooltip>
       <Menu
