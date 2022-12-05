@@ -1,17 +1,19 @@
+import categoryColors from "../../styles/categoryColors";
 import { TweetCategory } from "../../types";
 
 const getCategoryColor = (category: TweetCategory) => {
+  const { comedy, political, sports, entertainment, science } = categoryColors;
   switch (category) {
     case TweetCategory.comedy:
-      return "#892DFF";
+      return comedy;
     case TweetCategory.political:
-      return "#FF7B43";
+      return political;
     case TweetCategory.sports:
-      return "#FF2D39";
+      return sports;
     case TweetCategory.entertainment:
-      return "#FF2DC4";
+      return entertainment;
     case TweetCategory.science:
-      return "#25FF62";
+      return science;
   }
 };
 export default getCategoryColor;
