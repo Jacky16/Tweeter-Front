@@ -12,6 +12,7 @@ import Header from "../Header/Header";
 import ProtectedAuthRoute from "../ProtectedAuthRoute/ProtectedAuthRoute";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import CreateTweetPage from "../../pages/CreateTweetPage/CreateTweetPage";
+import EditTweetPage from "../../pages/EditTweetPage/EditTweetPage";
 
 const App = () => {
   const { getToken } = useToken();
@@ -61,7 +62,22 @@ const App = () => {
             }
           />
 
-          <Route path="/create" element={<CreateTweetPage />} />
+          <Route
+            path="/create"
+            element={
+              <ProtectedRoute isLogged={isLogged}>
+                <CreateTweetPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/edit/:idTweet"
+            element={
+              <ProtectedRoute isLogged={isLogged}>
+                <EditTweetPage />
+              </ProtectedRoute>
+            }
+          />
 
           <Route path="*" element={<NotFoundPage />} />
         </Routes>

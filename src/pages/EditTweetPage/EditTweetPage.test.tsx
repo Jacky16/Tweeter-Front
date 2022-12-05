@@ -4,7 +4,7 @@ import EditTweetPage from "./EditTweetPage";
 
 describe("Given the EditTweetPage component", () => {
   describe("When the page is rendered", () => {
-    test("Then it should show the title 'Edit Tweet'", () => {
+    test("Then it should show the title 'Edit tweet'", () => {
       const title = "Edit tweet";
       renderWithProviders(<EditTweetPage />);
 
