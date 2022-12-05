@@ -38,14 +38,20 @@ const TweetCard = ({
         >
           <CardContent>
             <Grid container spacing={2}>
-              <Grid item container xs={12} alignItems={"start"}>
+              <Grid
+                item
+                container
+                xs={12}
+                alignItems={"start"}
+                justifyContent={"stretch"}
+              >
                 <Grid item xs={2} sm={1}>
                   <Avatar
                     src={getUrlProfileAvatar(username)}
                     sx={{ width: 56, height: 56 }}
                   />
                 </Grid>
-                <Grid item xs={4} sm={6}>
+                <Grid item xs={3} sm={6}>
                   <Grid item>
                     <Typography variant={"h6"} fontWeight={900} fontSize={16}>
                       {alias}
@@ -63,7 +69,7 @@ const TweetCard = ({
 
                 <Grid
                   item
-                  xs={isAuthorOfTweet ? 4 : 6}
+                  xs={isAuthorOfTweet ? 5 : 6}
                   sm={isAuthorOfTweet ? 4 : 5}
                 >
                   <Category category={categoryConverter(category)} />
