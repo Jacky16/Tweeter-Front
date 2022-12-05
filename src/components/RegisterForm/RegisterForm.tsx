@@ -47,13 +47,15 @@ export const RegisterForm = () => {
     },
   };
 
+  const registerUserForm = () => {
+    registerData.username = registerData.username.replaceAll("@", "");
+    const usernameWithAtSign = `@${registerData.username}`;
+
+    registerUser({ ...registerData, username: usernameWithAtSign });
+  };
+
   return (
-    <FormAuth
-      title={"Join Tweeter today"}
-      handleSubmit={() => {
-        registerUser(registerData);
-      }}
-    >
+    <FormAuth title={"Join Tweeter today"} handleSubmit={registerUserForm}>
       <Stack spacing={2}>
         <TextField
           name="alias"
