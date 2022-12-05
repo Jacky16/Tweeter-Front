@@ -2,13 +2,20 @@ import { faker } from "@faker-js/faker";
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { renderWithProviders } from "../../mocks/renderWithProviders";
+import mockStore from "../../mocks/store/mockStore";
+import { mockTweet } from "../../mocks/tweets/tweetsMock";
+import { TweetState } from "../../redux/types";
+import FormTweet from "./FormTweet";
 import FormCreateTweet from "./FormTweet";
 jest.setTimeout(100000);
 
 const mockCreateTweet = jest.fn();
+const mockUpdateTweet = jest.fn();
 jest.mock("../../hooks/useTweets/useTweets", () => {
   return () => ({
     createTweet: mockCreateTweet,
+    updateTweet: mockUpdateTweet,
+    getOneTweet: jest.fn(),
   });
 });
 
@@ -20,16 +27,7 @@ jest.mock("react-router-dom", () => {
   };
 });
 
-describe("Given the FormCreateTweet component", () => {
-  describe("When it is rendered", () => {
-    test("Then it should show the textbox to write tweet", () => {
-      renderWithProviders(<FormCreateTweet />);
-
-      const textbox = screen.getByRole("textbox");
-
-      expect(textbox).toBeInTheDocument();
-    });
-  });
+describe("Given the FormTweet component", () => {
   describe("When in textbox there're 280 characters", () => {
     test("Then it should show a paragraph with 'Tweet is too long 386/280'", async () => {
       const contentTweetBox = faker.lorem.words(50);
@@ -135,6 +133,29 @@ describe("Given the FormCreateTweet component", () => {
       await userEvent.click(cancelButton);
 
       expect(mockNavigate).toBeCalled();
+    });
+  });
+
+  describe("When is edit mode with tweet with", () => {
+    test("Then it should show the tweet description and when user click on tweet button, should updateTweet should be called", async () => {
+      const store = mockStore({
+        tweetsPreloadState: {
+          tweet: mockTweet,
+        } as TweetState,
+      });
+
+      renderWithProviders(<FormTweet isEditMode={true} />, { store });
+
+      const textDescriptionTweet = await screen.findByText(
+        mockTweet.description
+      );
+      const buttonTweet = screen.getByRole("button", {
+        name: "Tweet",
+      });
+      await userEvent.click(buttonTweet);
+
+      expect(textDescriptionTweet).toBeInTheDocument();
+      expect(mockUpdateTweet).toBeCalled();
     });
   });
 });
