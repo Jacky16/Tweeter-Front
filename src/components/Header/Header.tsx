@@ -10,7 +10,7 @@ const Header = () => {
 
   return (
     <AppBar position="static" color="transparent" elevation={0}>
-      <Grid container paddingX={4} paddingY={1}>
+      <Grid container paddingX={2} paddingY={1}>
         <Stack width={"100%"} direction={"row"} alignItems={"center"}>
           <Box sx={{ flex: 1 }}>
             <RouterLink to="/" aria-label="Logo Tweeter">
