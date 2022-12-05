@@ -69,7 +69,7 @@ const HomePage = () => {
           <Divider />
         </Grid>
         <Grid item xs={12}>
-          <TweetCardList tweets={tweets} />
+          <TweetCardList tweets={tweets} isLoading={isLoading} />
         </Grid>
         {!isLastPage && (
           <Grid item>
