@@ -4,7 +4,7 @@ import userEvent from "@testing-library/user-event";
 import { renderWithProviders } from "../../mocks/renderWithProviders";
 import mockStore from "../../mocks/store/mockStore";
 import { mockTweet } from "../../mocks/tweets/tweetsMock";
-import { TweetState } from "../../redux/types";
+import { TweetState, UiState } from "../../redux/types";
 import FormTweet from "./FormTweet";
 import FormCreateTweet from "./FormTweet";
 jest.setTimeout(100000);
@@ -137,7 +137,8 @@ describe("Given the FormTweet component", () => {
   });
 
   describe("When is edit mode with tweet with", () => {
-    test("Then it should show the tweet description and when user click on tweet button, should updateTweet should be called", async () => {
+    test("Then it should show the tweet description and when user click on 'Edit tweet' button, should updateTweet should be called", async () => {
+      const nameEditButton = "Edit Tweet";
       const store = mockStore({
         tweetsPreloadState: {
           tweet: mockTweet,
@@ -150,7 +151,7 @@ describe("Given the FormTweet component", () => {
         mockTweet.description
       );
       const buttonTweet = screen.getByRole("button", {
-        name: "Tweet",
+        name: nameEditButton,
       });
       await userEvent.click(buttonTweet);
 
