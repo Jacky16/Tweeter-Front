@@ -5,7 +5,6 @@ import getCategoryColor from "../../utils/getCategoryColor/getCategoryColor";
 interface CategoryStyledProps {
   category: TweetCategory;
 }
-const categoryColor = (category: TweetCategory) => {};
 const CategoryStyled = styled.div<CategoryStyledProps>`
   padding: 0.5rem;
   font-size: 0.9rem;
