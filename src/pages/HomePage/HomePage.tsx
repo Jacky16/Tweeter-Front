@@ -24,13 +24,14 @@ const HomePage = () => {
     useTweets();
 
   const isLastPage = currentPage === totalPages;
+  const isFirstPage = currentPage === 1;
 
   const handleCreateTweet = () => {
     navigate("/create");
   };
 
   useEffect(() => {
-    if (currentPage === 1) {
+    if (isFirstPage) {
       if (categoryFilter !== "all") {
         loadTweetsByCategory(token, categoryFilter, 5);
         return;
@@ -48,6 +49,7 @@ const HomePage = () => {
     currentPage,
     getTweets,
     getTweetsByCategory,
+    isFirstPage,
     loadTweets,
     loadTweetsByCategory,
     token,
@@ -69,7 +71,10 @@ const HomePage = () => {
           <Divider />
         </Grid>
         <Grid item xs={12}>
-          <TweetCardList tweets={tweets} isLoading={isLoading} />
+          <TweetCardList
+            tweets={tweets}
+            showCardsSkeleton={isLoading && isFirstPage}
+          />
         </Grid>
         {!isLastPage && (
           <Grid item>

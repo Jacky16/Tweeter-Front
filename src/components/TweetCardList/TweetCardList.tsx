@@ -5,9 +5,12 @@ import TweetCard from "../TweetCard/TweetCard";
 import TweetCardSkeleton from "../TweetCardSkeleton/TweetCardSkeleton";
 interface TweetCardListProps {
   tweets: Tweet[];
-  isLoading: boolean;
+  showCardsSkeleton: boolean;
 }
-const TweetCardList = ({ tweets, isLoading }: TweetCardListProps) => {
+const TweetCardList = ({
+  tweets,
+  showCardsSkeleton: isLoading,
+}: TweetCardListProps) => {
   const tweetsSkeleton = Array.from(["", "", ""]);
   return (
     <Stack
