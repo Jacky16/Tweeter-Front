@@ -16,8 +16,8 @@ import useTweets from "../../hooks/useTweets/useTweets";
 import { useAppSelector } from "../../redux/hooks";
 import { TweetData } from "../../types";
 import ImageIcon from "@mui/icons-material/Image";
-import PrimaryButton from "../PrimaryButton/PrimaryButton";
 import { useNavigate, useParams } from "react-router-dom";
+import LoadingButton from "@mui/lab/LoadingButton";
 
 const maxTweetLength = 280;
 
@@ -27,6 +27,7 @@ interface FormTweetProps {
 const FormTweet = ({ isEditMode = false }: FormTweetProps) => {
   const { id, token } = useAppSelector((state) => state.user);
   const { tweet } = useAppSelector((state) => state.tweets);
+  const isLoading = useAppSelector((state) => state.ui.isLoading);
 
   const { createTweet, getOneTweet, updateTweet } = useTweets();
   const { idTweet } = useParams();
@@ -52,12 +53,14 @@ const FormTweet = ({ isEditMode = false }: FormTweetProps) => {
         category: tweet?.category,
         description: tweet?.description,
         id: tweet.id,
+        author: id,
+        image: {} as File,
       };
 
       setTweetData(defaultTweetData as TweetData);
       setImagePreviewUrl(tweet.image);
     }
-  }, [isEditMode, tweet]);
+  }, [id, isEditMode, tweet]);
 
   const handleDataTweet = (
     event:
@@ -106,6 +109,7 @@ const FormTweet = ({ isEditMode = false }: FormTweetProps) => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
     if (!isEditMode) {
       createTweet(token, tweetData);
       return;
@@ -179,7 +183,7 @@ const FormTweet = ({ isEditMode = false }: FormTweetProps) => {
                     <MenuItem value={"comedy"}>Comedy</MenuItem>
                     <MenuItem value={"sports"}>Sports</MenuItem>
                     <MenuItem value={"science"}>Science</MenuItem>
-                    <MenuItem value={"enter"}>Science</MenuItem>
+                    <MenuItem value={"political"}>Political</MenuItem>
                     <MenuItem value={"entertainment"}>Entertainment</MenuItem>
                   </Select>
                 </Grid>
@@ -227,9 +231,16 @@ const FormTweet = ({ isEditMode = false }: FormTweetProps) => {
                   </Button>
                 </Grid>
                 <Grid item>
-                  <PrimaryButton>
-                    <Typography fontWeight={900}>Tweet</Typography>
-                  </PrimaryButton>
+                  <LoadingButton
+                    loading={isLoading}
+                    variant="contained"
+                    type="submit"
+                    sx={{ borderRadius: "4px" }}
+                  >
+                    <Typography fontWeight={900}>
+                      {isEditMode ? "Edit Tweet" : "Tweet"}
+                    </Typography>
+                  </LoadingButton>
                 </Grid>
               </Grid>
             </Grid>

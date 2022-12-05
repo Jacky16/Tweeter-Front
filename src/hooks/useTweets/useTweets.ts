@@ -192,6 +192,7 @@ const useTweets = () => {
   );
 
   const createTweet = async (token: string, tweetData: TweetData) => {
+    dispatch(openIsLoadingActionCreator());
     try {
       await axios.post(requestsUrl.createTweet, tweetData, {
         headers: {
@@ -201,7 +202,17 @@ const useTweets = () => {
       });
 
       navigate("/");
+      dispatch(closeIsLoadingActionCreator());
+      dispatch(
+        openAlertActionCreator({
+          message: "Tweet created",
+          severity: "success",
+          isOpen: true,
+        })
+      );
     } catch (error: unknown) {
+      dispatch(closeIsLoadingActionCreator());
+
       dispatch(
         openAlertActionCreator({
           message: "Error to create tweet",
@@ -240,6 +251,8 @@ const useTweets = () => {
   };
 
   const updateTweet = async (token: string, tweetData: TweetData) => {
+    dispatch(openIsLoadingActionCreator());
+
     try {
       const response = await axios.patch(
         `${requestsUrl.updateTweet}/${tweetData.id}`,
@@ -253,7 +266,7 @@ const useTweets = () => {
       );
 
       const { tweet } = await response.data;
-
+      dispatch(closeIsLoadingActionCreator());
       dispatch(updateTweetActionCreator(parseTweetApi(tweet)));
       dispatch(
         openAlertActionCreator({
@@ -265,6 +278,8 @@ const useTweets = () => {
 
       navigate("/");
     } catch (error: unknown) {
+      dispatch(closeIsLoadingActionCreator());
+
       dispatch(
         openAlertActionCreator({
           message: "Error to update tweet",
