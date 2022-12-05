@@ -7,6 +7,7 @@ import categoryConverter from "../../utils/categoryConverter/categoryConverter";
 import getCategoryColor from "../../utils/getCategoryColor/getCategoryColor";
 import TweetDetailStyled from "./TweetDetailStyled";
 import TimeAgo from "timeago-react";
+import getUrlProfileAvatar from "../../utils/getProfileAvatar";
 interface TweetDetailProps {
   tweet: Tweet;
 }
@@ -34,7 +35,10 @@ const TweetDetail = ({
               >
                 {category}
               </Typography>
-              <Avatar sx={{ width: 122, height: 122 }} />
+              <Avatar
+                sx={{ width: 122, height: 122 }}
+                src={getUrlProfileAvatar(username)}
+              />
               <Typography fontWeight={900} fontSize={22}>
                 {alias}
               </Typography>
@@ -45,7 +49,7 @@ const TweetDetail = ({
           </Paper>
         </Grid>
 
-        <Grid item xs={12} alignItems={"center"} spacing={2}>
+        <Grid item xs={12} alignItems={"center"}>
           <Paper>
             <Grid item xs={12} padding={2}>
               <Typography variant={"subtitle1"}>
