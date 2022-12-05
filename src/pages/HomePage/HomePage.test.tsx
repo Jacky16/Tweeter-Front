@@ -34,4 +34,26 @@ describe("Given the HomePage component", () => {
       expect(mockNavigate).toHaveBeenCalledWith("/create");
     });
   });
+
+  describe("When is loading and is the first page", () => {
+    test("Then it should show 3 TweetCardSkeleton", () => {
+      const uiState: UiState = {
+        pagination: {
+          currentPage: 1,
+          totalPages: 1,
+        },
+        isLoading: true,
+        categoryFilter: "all",
+      } as UiState;
+
+      const store = mockStore({
+        uiPreloadState: uiState,
+      });
+
+      renderWithProviders(<HomePage />, { store });
+
+      const tweetCards = screen.getAllByTestId("TweetCardSkeleton");
+      expect(tweetCards).toHaveLength(3);
+    });
+  });
 });
