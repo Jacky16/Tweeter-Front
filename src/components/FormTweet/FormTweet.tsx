@@ -126,7 +126,10 @@ const FormTweet = ({ isEditMode = false }: FormTweetProps) => {
             <Grid container item xs={12} rowGap={2}>
               <Grid container item xs={12}>
                 <Grid item xs={2} sm={1}>
-                  <Avatar src={getUrlProfileAvatar(tweet.username)} />
+                  <Avatar
+                    alt={`Avatar ${tweet.username}`}
+                    src={getUrlProfileAvatar(tweet.username)}
+                  />
                 </Grid>
                 <Grid item xs={10} sm={11}>
                   <TextField

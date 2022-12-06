@@ -55,7 +55,10 @@ const AccountMenu = () => {
           aria-expanded={open ? "true" : undefined}
         >
           <Stack direction={"row"} alignItems={"center"}>
-            <Avatar src={getUrlProfileAvatar(username)} />
+            <Avatar
+              alt={`Avatar ${username}`}
+              src={getUrlProfileAvatar(username)}
+            />
             <Typography fontSize={14} height={"100%"}>
               {alias}
             </Typography>

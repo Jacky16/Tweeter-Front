@@ -47,6 +47,7 @@ const TweetCard = ({
               >
                 <Grid item xs={2} sm={1}>
                   <Avatar
+                    alt={`Avatar ${username}`}
                     src={getUrlProfileAvatar(username)}
                     sx={{ width: 56, height: 56 }}
                   />

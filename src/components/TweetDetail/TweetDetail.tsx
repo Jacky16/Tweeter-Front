@@ -37,6 +37,7 @@ const TweetDetail = ({
               </Typography>
               <Avatar
                 sx={{ width: 122, height: 122 }}
+                alt={`Avatar ${username}`}
                 src={getUrlProfileAvatar(username)}
               />
               <Typography fontWeight={900} fontSize={22}>
