@@ -8,6 +8,9 @@ import getCategoryColor from "../../utils/getCategoryColor/getCategoryColor";
 import TweetDetailStyled from "./TweetDetailStyled";
 import getUrlProfileAvatar from "../../utils/getProfileAvatar";
 import ReactTimeAgo from "react-time-ago";
+import ImageViewer from "react-simple-image-viewer";
+import { useState } from "react";
+
 interface TweetDetailProps {
   tweet: Tweet;
 }
@@ -15,6 +18,15 @@ interface TweetDetailProps {
 const TweetDetail = ({
   tweet: { category, alias, username, dateOfCreation, description, image },
 }: TweetDetailProps) => {
+  const [isViewerOpen, setIsViewerOpen] = useState(false);
+
+  const openImageViewer = () => {
+    setIsViewerOpen(true);
+  };
+  const closeImageViewer = () => {
+    setIsViewerOpen(false);
+  };
+
   const tweetCategory = categoryConverter(category);
   const categoryColor = getCategoryColor(tweetCategory);
   return (
@@ -54,17 +66,38 @@ const TweetDetail = ({
           <Paper>
             <Grid item xs={12} padding={2}>
               <Typography variant={"subtitle1"}>
-                <ReactTimeAgo date={new Date(dateOfCreation)} />
+                {dateOfCreation && (
+                  <ReactTimeAgo date={new Date(dateOfCreation)} />
+                )}
               </Typography>
             </Grid>
             <Grid item xs={12} padding={2}>
               <Stack direction={"column"} spacing={2}>
                 <Typography>{description}</Typography>
-                <img width={"100%"} height={"400px"} src={image} alt="tweet" />
+                <img
+                  width={"100%"}
+                  height={"400px"}
+                  src={image}
+                  alt="tweet"
+                  style={{ cursor: "pointer" }}
+                  onClick={() => openImageViewer()}
+                />
               </Stack>
             </Grid>
           </Paper>
         </Grid>
+        {isViewerOpen && (
+          <ImageViewer
+            src={[image]}
+            currentIndex={0}
+            disableScroll={false}
+            closeOnClickOutside={true}
+            backgroundStyle={{
+              backgroundColor: "rgba(0,0,0,0.8)",
+            }}
+            onClose={closeImageViewer}
+          />
+        )}
       </Grid>
     </TweetDetailStyled>
   );
