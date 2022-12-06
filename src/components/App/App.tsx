@@ -7,7 +7,6 @@ import Header from "../Header/Header";
 import ProtectedAuthRoute from "../ProtectedAuthRoute/ProtectedAuthRoute";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import { lazy, Suspense } from "react";
-import { S } from "msw/lib/SetupApi-0d3126ba";
 
 const LoginPage = lazy(() => import("../../pages/LoginPage/LoginPage"));
 const RegisterPage = lazy(
