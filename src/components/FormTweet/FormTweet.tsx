@@ -18,6 +18,7 @@ import { TweetData } from "../../types";
 import ImageIcon from "@mui/icons-material/Image";
 import { useNavigate, useParams } from "react-router-dom";
 import LoadingButton from "@mui/lab/LoadingButton";
+import getUrlProfileAvatar from "../../utils/getProfileAvatar";
 
 const maxTweetLength = 280;
 
@@ -125,7 +126,7 @@ const FormTweet = ({ isEditMode = false }: FormTweetProps) => {
             <Grid container item xs={12} rowGap={2}>
               <Grid container item xs={12}>
                 <Grid item xs={2} sm={1}>
-                  <Avatar />
+                  <Avatar src={getUrlProfileAvatar(tweet.username)} />
                 </Grid>
                 <Grid item xs={10} sm={11}>
                   <TextField
@@ -236,6 +237,7 @@ const FormTweet = ({ isEditMode = false }: FormTweetProps) => {
                     variant="contained"
                     type="submit"
                     sx={{ borderRadius: "4px" }}
+                    size={"large"}
                   >
                     <Typography fontWeight={900}>
                       {isEditMode ? "Edit Tweet" : "Tweet"}
