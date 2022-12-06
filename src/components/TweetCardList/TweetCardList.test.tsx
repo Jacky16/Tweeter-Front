@@ -2,6 +2,10 @@ import { screen } from "@testing-library/react";
 import { getTweets } from "../../factory/tweetsFactory";
 import { renderWithProviders } from "../../mocks/renderWithProviders";
 import TweetCardList from "./TweetCardList";
+import TimeAgo from "javascript-time-ago";
+import en from "javascript-time-ago/locale/en.json";
+
+TimeAgo.addDefaultLocale(en);
 
 describe("Given the TweetCardList component", () => {
   describe("When it's rendered with 5 tweets", () => {

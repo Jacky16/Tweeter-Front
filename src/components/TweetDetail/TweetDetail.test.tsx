@@ -1,6 +1,10 @@
 import { render, screen } from "@testing-library/react";
 import { getTweet } from "../../factory/tweetsFactory";
 import TweetDetail from "./TweetDetail";
+import en from "javascript-time-ago/locale/en.json";
+import TimeAgo from "javascript-time-ago";
+
+TimeAgo.addDefaultLocale(en);
 
 describe("Given the TweetDetail component", () => {
   describe("When it's rendered with a tweet", () => {
