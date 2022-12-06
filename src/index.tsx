@@ -13,7 +13,11 @@ import "@fontsource/poppins";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import { BrowserRouter } from "react-router-dom";
 import mainTheme from "./styles/mainTheme";
+import TimeAgo from "javascript-time-ago";
+import en from "javascript-time-ago/locale/en.json";
+
 const container = document.getElementById("root")!;
+TimeAgo.addDefaultLocale(en);
 
 const root = createRoot(container);
 root.render(

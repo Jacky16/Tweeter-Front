@@ -10,10 +10,10 @@ import Category from "../Category/Category";
 import TweetCardStyled from "./TweetCardStyled";
 import categoryConverter from "../../utils/categoryConverter/categoryConverter";
 import { useNavigate } from "react-router-dom";
-import TimeAgo from "timeago-react";
 import { useAppSelector } from "../../redux/hooks";
 import TweetCardOptions from "../TweetCardOptions/TweetCardOptions";
 import getUrlProfileAvatar from "../../utils/getProfileAvatar";
+import ReactTimeAgo from "react-time-ago";
 interface TweetCardProps {
   tweet: Tweet;
 }
@@ -63,7 +63,7 @@ const TweetCard = ({
                   </Grid>
                   <Grid item>
                     <Typography variant={"subtitle2"} fontSize={12}>
-                      <TimeAgo datetime={dateOfCreation} live={true} />
+                      <ReactTimeAgo date={new Date(dateOfCreation)} />
                     </Typography>
                   </Grid>
                 </Grid>

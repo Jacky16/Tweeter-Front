@@ -6,8 +6,8 @@ import { Tweet } from "../../types";
 import categoryConverter from "../../utils/categoryConverter/categoryConverter";
 import getCategoryColor from "../../utils/getCategoryColor/getCategoryColor";
 import TweetDetailStyled from "./TweetDetailStyled";
-import TimeAgo from "timeago-react";
 import getUrlProfileAvatar from "../../utils/getProfileAvatar";
+import ReactTimeAgo from "react-time-ago";
 interface TweetDetailProps {
   tweet: Tweet;
 }
@@ -54,7 +54,7 @@ const TweetDetail = ({
           <Paper>
             <Grid item xs={12} padding={2}>
               <Typography variant={"subtitle1"}>
-                <TimeAgo datetime={dateOfCreation} />
+                <ReactTimeAgo date={new Date(dateOfCreation)} />
               </Typography>
             </Grid>
             <Grid item xs={12} padding={2}>
