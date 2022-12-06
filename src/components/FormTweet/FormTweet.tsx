@@ -237,6 +237,7 @@ const FormTweet = ({ isEditMode = false }: FormTweetProps) => {
                     variant="contained"
                     type="submit"
                     sx={{ borderRadius: "4px" }}
+                    size={"large"}
                   >
                     <Typography fontWeight={900}>
                       {isEditMode ? "Edit Tweet" : "Tweet"}
