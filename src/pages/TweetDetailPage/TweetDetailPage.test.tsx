@@ -1,9 +1,13 @@
 import { screen } from "@testing-library/react";
 import TweetDetailPage from "./TweetDetailPage";
-
 import { renderWithProviders } from "../../mocks/renderWithProviders";
 import mockStore from "../../mocks/store/mockStore";
-import { UiState } from "../../redux/types";
+import { TweetState, UiState } from "../../redux/types";
+import TimeAgo from "javascript-time-ago";
+import en from "javascript-time-ago/locale/en.json";
+import { Tweet } from "../../types";
+
+TimeAgo.addDefaultLocale(en);
 
 const mockNavigate = jest.fn();
 
@@ -40,6 +44,11 @@ describe("Given the TweetDetailPage component", () => {
       };
       const store = mockStore({
         uiPreloadState: mockUiState as UiState,
+        tweetsPreloadState: {
+          tweet: {
+            dateOfCreation: new Date(),
+          } as Tweet,
+        } as TweetState,
       });
 
       renderWithProviders(<TweetDetailPage />, { store });

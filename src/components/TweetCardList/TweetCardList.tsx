@@ -7,6 +7,7 @@ interface TweetCardListProps {
   tweets: Tweet[];
   showCardsSkeleton: boolean;
 }
+
 const TweetCardList = ({
   tweets,
   showCardsSkeleton: isLoading,

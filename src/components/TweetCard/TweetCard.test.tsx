@@ -4,6 +4,10 @@ import { renderWithProviders } from "../../mocks/renderWithProviders";
 import mockUserLogged from "../../mocks/states/mockUserLogged";
 import mockStore from "../../mocks/store/mockStore";
 import TweetCard from "./TweetCard";
+import TimeAgo from "javascript-time-ago";
+import en from "javascript-time-ago/locale/en.json";
+
+TimeAgo.addDefaultLocale(en);
 
 const mockNavigate = jest.fn();
 
