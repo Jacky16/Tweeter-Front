@@ -1,10 +1,3 @@
-import Avatar from "@mui/material/Avatar/Avatar";
-import Card from "@mui/material/Card/Card";
-import CardActionArea from "@mui/material/CardActionArea/CardActionArea";
-import CardContent from "@mui/material/CardContent/CardContent";
-import Divider from "@mui/material/Divider/Divider";
-import Grid from "@mui/material/Grid/Grid";
-import Typography from "@mui/material/Typography/Typography";
 import { Tweet } from "../../types";
 import Category from "../Category/Category";
 import TweetCardStyled from "./TweetCardStyled";
@@ -14,6 +7,15 @@ import { useAppSelector } from "../../redux/hooks";
 import TweetCardOptions from "../TweetCardOptions/TweetCardOptions";
 import getUrlProfileAvatar from "../../utils/getProfileAvatar";
 import ReactTimeAgo from "react-time-ago";
+import {
+  Card,
+  CardActionArea,
+  CardContent,
+  Grid,
+  Avatar,
+  Typography,
+  Divider,
+} from "@mui/material";
 interface TweetCardProps {
   tweet: Tweet;
 }

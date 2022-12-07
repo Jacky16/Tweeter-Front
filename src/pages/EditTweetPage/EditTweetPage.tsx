@@ -1,5 +1,4 @@
-import Grid from "@mui/material/Grid/Grid";
-import Typography from "@mui/material/Typography/Typography";
+import { Grid, Typography } from "@mui/material";
 import FormCreateTweet from "../../components/FormTweet/FormTweet";
 
 const EditTweetPage = () => {

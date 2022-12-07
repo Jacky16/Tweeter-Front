@@ -1,5 +1,4 @@
-import FormControl from "@mui/material/FormControl";
-import MenuItem from "@mui/material/MenuItem";
+import { FormControl, MenuItem } from "@mui/material";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import Typography from "@mui/material/Typography";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
@@ -22,9 +21,11 @@ const FilterCategories = () => {
       })
     );
   };
+
   const categories = Object.values(TweetCategory).filter(
     (category) => isNaN(+category) && category !== "unknown"
   );
+
   return (
     <FormControl sx={{ minWidth: 120 }} size="small">
       <Select

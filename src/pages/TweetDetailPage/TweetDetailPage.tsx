@@ -1,12 +1,11 @@
-import Button from "@mui/material/Button/Button";
-import Grid from "@mui/material/Grid/Grid";
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import Loader from "../../components/Loader/Loader";
 import TweetDetail from "../../components/TweetDetail/TweetDetail";
 import useTweets from "../../hooks/useTweets/useTweets";
 import { useAppSelector } from "../../redux/hooks";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
+import { Grid, Button } from "@mui/material";
+import Loader from "../../components/Loader/Loader";
 
 const TweetDetailPage = () => {
   const isLoading = useAppSelector((state) => state.ui.isLoading);
