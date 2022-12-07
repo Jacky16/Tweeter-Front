@@ -8,11 +8,13 @@ import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
 import LockIcon from "@mui/icons-material/Lock";
 import EmailIcon from "@mui/icons-material/Email";
 import { Link as RouterLink } from "react-router-dom";
-import TextField from "@mui/material/TextField";
-import Stack from "@mui/material/Stack";
-import InputAdornment from "@mui/material/InputAdornment";
-import Typography from "@mui/material/Typography";
-import Link from "@mui/material/Link";
+import {
+  Stack,
+  TextField,
+  InputAdornment,
+  Typography,
+  Link,
+} from "@mui/material";
 
 export const RegisterForm = () => {
   const { registerUser } = useUser();

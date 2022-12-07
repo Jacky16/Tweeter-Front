@@ -2,11 +2,11 @@ import { Container } from "@mui/material";
 import { Route, Routes } from "react-router-dom";
 import useToken from "../../hooks/useToken/useToken";
 import { useAppSelector } from "../../redux/hooks";
-import AlertToast from "../AlertToast/AlertToast";
 import Header from "../Header/Header";
 import ProtectedAuthRoute from "../ProtectedAuthRoute/ProtectedAuthRoute";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import { lazy, Suspense } from "react";
+import AlertToast from "../AlertToast/AlertToast";
 
 const LoginPage = lazy(() => import("../../pages/LoginPage/LoginPage"));
 const RegisterPage = lazy(

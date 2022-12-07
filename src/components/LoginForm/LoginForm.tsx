@@ -7,10 +7,7 @@ import LockIcon from "@mui/icons-material/Lock";
 import EmailIcon from "@mui/icons-material/Email";
 import { Link as RouterLink } from "react-router-dom";
 import Stack from "@mui/material/Stack";
-import TextField from "@mui/material/TextField";
-import InputAdornment from "@mui/material/InputAdornment";
-import Typography from "@mui/material/Typography";
-import Link from "@mui/material/Link";
+import { TextField, InputAdornment, Typography, Link } from "@mui/material";
 const LoginForm = () => {
   const { loginUser } = useUser();
 

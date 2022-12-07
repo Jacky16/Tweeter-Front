@@ -1,9 +1,9 @@
-import LoadingButton from "@mui/lab/LoadingButton";
 import AddIcon from "@mui/icons-material/Add";
 import { useAppDispatch } from "../../redux/hooks";
 import { Pagination } from "../../redux/types";
 import { advancePaginationActionCreator } from "../../redux/UiSlice/UiSlice";
-import Typography from "@mui/material/Typography/Typography";
+import { LoadingButton } from "@mui/lab";
+import { Typography } from "@mui/material";
 
 interface LoadMoreButtonProps {
   isLoading: boolean;

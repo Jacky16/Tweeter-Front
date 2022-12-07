@@ -6,16 +6,19 @@ import ImageIcon from "@mui/icons-material/Image";
 import { useNavigate, useParams } from "react-router-dom";
 import LoadingButton from "@mui/lab/LoadingButton";
 import getUrlProfileAvatar from "../../utils/getProfileAvatar";
-import Grid from "@mui/material/Grid";
-import Paper from "@mui/material/Paper";
-import Avatar from "@mui/material/Avatar";
-import TextField from "@mui/material/TextField";
-import IconButton from "@mui/material/IconButton";
+
 import Select, { SelectChangeEvent } from "@mui/material/Select";
-import MenuItem from "@mui/material/MenuItem";
-import Typography from "@mui/material/Typography";
-import CircularProgress from "@mui/material/CircularProgress";
 import Button from "@mui/material/Button";
+import {
+  Grid,
+  Paper,
+  Avatar,
+  TextField,
+  IconButton,
+  MenuItem,
+  CircularProgress,
+  Typography,
+} from "@mui/material";
 
 const maxTweetLength = 280;
 
@@ -125,7 +128,7 @@ const FormTweet = ({ isEditMode = false }: FormTweetProps) => {
                 <Grid item xs={2} sm={1}>
                   <Avatar
                     alt={`Avatar ${tweet.username}`}
-                    src={getUrlProfileAvatar(tweet.username)}
+                    src={getUrlProfileAvatar(tweet.alias)}
                   />
                 </Grid>
                 <Grid item xs={10} sm={11}>

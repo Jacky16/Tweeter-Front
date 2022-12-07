@@ -1,8 +1,4 @@
-import Card from "@mui/material/Card/Card";
-import CardContent from "@mui/material/CardContent/CardContent";
-import Grid from "@mui/material/Grid/Grid";
-import Skeleton from "@mui/material/Skeleton/Skeleton";
-import Divider from "@mui/material/Divider/Divider";
+import { Card, CardContent, Grid, Skeleton, Divider } from "@mui/material";
 
 const TweetCardSkeleton = () => {
   return (

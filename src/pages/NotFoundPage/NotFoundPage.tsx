@@ -1,7 +1,5 @@
 import { Link as RouterLink } from "react-router-dom";
-import Stack from "@mui/material/Stack/Stack";
-import Typography from "@mui/material/Typography";
-import Link from "@mui/material/Link";
+import { Stack, Typography, Link } from "@mui/material";
 
 const NotFoundPage = () => {
   const fontWeight = 900;
