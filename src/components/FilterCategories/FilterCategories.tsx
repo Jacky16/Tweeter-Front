@@ -1,7 +1,7 @@
-import { Typography } from "@mui/material";
-import FormControl from "@mui/material/FormControl/FormControl";
-import MenuItem from "@mui/material/MenuItem/MenuItem";
-import Select, { SelectChangeEvent } from "@mui/material/Select/Select";
+import FormControl from "@mui/material/FormControl";
+import MenuItem from "@mui/material/MenuItem";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
+import Typography from "@mui/material/Typography";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import {
   changeFilterCategoryActionCreator,

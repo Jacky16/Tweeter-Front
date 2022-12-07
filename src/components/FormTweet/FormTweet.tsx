@@ -1,16 +1,3 @@
-import {
-  Avatar,
-  Button,
-  CircularProgress,
-  IconButton,
-  MenuItem,
-  Select,
-  SelectChangeEvent,
-  TextField,
-} from "@mui/material";
-import Grid from "@mui/material/Grid/Grid";
-import Paper from "@mui/material/Paper/Paper";
-import Typography from "@mui/material/Typography/Typography";
 import React, { ChangeEvent, useEffect, useState } from "react";
 import useTweets from "../../hooks/useTweets/useTweets";
 import { useAppSelector } from "../../redux/hooks";
@@ -19,6 +6,16 @@ import ImageIcon from "@mui/icons-material/Image";
 import { useNavigate, useParams } from "react-router-dom";
 import LoadingButton from "@mui/lab/LoadingButton";
 import getUrlProfileAvatar from "../../utils/getProfileAvatar";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
+import Avatar from "@mui/material/Avatar";
+import TextField from "@mui/material/TextField";
+import IconButton from "@mui/material/IconButton";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import Typography from "@mui/material/Typography";
+import CircularProgress from "@mui/material/CircularProgress";
+import Button from "@mui/material/Button";
 
 const maxTweetLength = 280;
 

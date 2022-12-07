@@ -1,4 +1,3 @@
-import React from "react";
 import { TweetCategory } from "../../types";
 import CategoryStyled from "./CategoryStyled";
 

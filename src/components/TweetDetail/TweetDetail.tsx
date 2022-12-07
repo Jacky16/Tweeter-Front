@@ -1,7 +1,6 @@
-import { Avatar, Typography } from "@mui/material";
-import Grid from "@mui/material/Grid/Grid";
-import Paper from "@mui/material/Paper/Paper";
-import Stack from "@mui/system/Stack/Stack";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
+import Stack from "@mui/system/Stack";
 import { Tweet } from "../../types";
 import categoryConverter from "../../utils/categoryConverter/categoryConverter";
 import getCategoryColor from "../../utils/getCategoryColor/getCategoryColor";
@@ -10,6 +9,8 @@ import getUrlProfileAvatar from "../../utils/getProfileAvatar";
 import ReactTimeAgo from "react-time-ago";
 import ImageViewer from "react-simple-image-viewer";
 import { useState } from "react";
+import Typography from "@mui/material/Typography";
+import Avatar from "@mui/material/Avatar";
 
 interface TweetDetailProps {
   tweet: Tweet;

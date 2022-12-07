@@ -1,4 +1,3 @@
-import React from "react";
 import Loader from "../../components/Loader/Loader";
 import LoginForm from "../../components/LoginForm/LoginForm";
 import { useAppSelector } from "../../redux/hooks";
