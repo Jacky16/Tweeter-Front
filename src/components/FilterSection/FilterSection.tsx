@@ -1,5 +1,5 @@
-import { Typography } from "@mui/material";
-import Grid from "@mui/material/Grid/Grid";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
 import { useAppSelector } from "../../redux/hooks";
 import FilterCategories from "../FilterCategories/FilterCategories";
 

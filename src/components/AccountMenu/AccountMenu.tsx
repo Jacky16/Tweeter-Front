@@ -1,18 +1,18 @@
 import { Logout } from "@mui/icons-material";
-import Avatar from "@mui/material/Avatar/Avatar";
+import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button/Button";
-import ListItemIcon from "@mui/material/ListItemIcon/ListItemIcon";
-import Menu from "@mui/material/Menu/Menu";
-import MenuItem from "@mui/material/MenuItem/MenuItem";
-import Tooltip from "@mui/material/Tooltip/Tooltip";
-import Typography from "@mui/material/Typography/Typography";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import Tooltip from "@mui/material/Tooltip";
+import Typography from "@mui/material/Typography";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import React from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { userLogoutActionCreator } from "../../redux/userSlice/userSlice";
 import useToken from "../../hooks/useToken/useToken";
 import getUrlProfileAvatar from "../../utils/getProfileAvatar";
-import Stack from "@mui/material/Stack/Stack";
+import Stack from "@mui/material/Stack";
 
 const AccountMenu = () => {
   const { alias, username } = useAppSelector((state) => state.user);

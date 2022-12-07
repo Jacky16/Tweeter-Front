@@ -1,5 +1,5 @@
 import Alert from "@mui/material/Alert";
-import Snackbar from "@mui/material/Snackbar/Snackbar";
+import Snackbar from "@mui/material/Snackbar";
 import React, { useEffect } from "react";
 import { useAppDispatch } from "../../redux/hooks";
 import { closeAlertActionCreator } from "../../redux/UiSlice/UiSlice";

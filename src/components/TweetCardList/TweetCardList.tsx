@@ -1,5 +1,5 @@
-import { Divider, Stack } from "@mui/material";
-import React from "react";
+import Divider from "@mui/material/Divider";
+import Stack from "@mui/material/Stack";
 import { Tweet } from "../../types";
 import TweetCard from "../TweetCard/TweetCard";
 import TweetCardSkeleton from "../TweetCardSkeleton/TweetCardSkeleton";
