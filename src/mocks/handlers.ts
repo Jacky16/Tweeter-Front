@@ -58,12 +58,11 @@ export const handlers = [
   rest.get(
     `${requestsUrl.getTweetByCategory}/sports`,
     async (req, res, ctx) => {
-      const page = req.url.searchParams.get("page");
       const limit = req.url.searchParams.get("limit");
+      const page = req.url.searchParams.get("page");
       const token = req.headers.get("Authorization");
 
       const response = mockTweetsResponse;
-
       const totalPages = Math.ceil(response.tweets.length / Number(limit));
 
       if (token !== `Bearer ${mockTokenMario}`) {
