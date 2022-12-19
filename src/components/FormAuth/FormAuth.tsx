@@ -12,7 +12,7 @@ export const FormAuth = ({ children, title, handleSubmit }: FormAuthProps) => {
   return (
     <Grid
       container
-      style={{ minHeight: "100vh", width: "100%" }}
+      style={{ minHeight: "90vh", width: "100%" }}
       alignContent={"center"}
       justifyContent={"center"}
     >
