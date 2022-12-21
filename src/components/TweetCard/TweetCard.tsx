@@ -25,6 +25,8 @@ const TweetCard = ({
   const isAuthorOfTweet =
     useAppSelector((state) => state.user.username) === username;
 
+  const existsImage = image.includes("undefined");
+
   const navigate = useNavigate();
   const handleClick = () => {
     navigate(`/tweet/${id}`);
@@ -102,7 +104,7 @@ const TweetCard = ({
                     <Typography variant={"body1"}>{description}</Typography>
                   </Grid>
                 )}
-                {image && (
+                {!existsImage && (
                   <Grid item mt={4}>
                     <img src={image} width="100%" height="300px" alt="Tweet" />
                   </Grid>
