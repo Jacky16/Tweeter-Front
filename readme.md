@@ -48,15 +48,19 @@ Tweeter is a full stack project, you can see the [backend project ](https://gith
 
 ## Technology stack
 
-- React
-- Typescript
-- Redux
-- React Router
-- Material UI
-- Axios
-- Jest
-- React Testing Library
-- Styled Components
+<div align="center">
+
+![React](https://img.shields.io/badge/-React-61DAFB?style=flat-square&logo=react&logoColor=white)
+![Typescript](https://img.shields.io/badge/-Typescript-3178C6?style=flat-square&logo=typescript&logoColor=white)
+![Redux](https://img.shields.io/badge/-Redux-764ABC?style=flat-square&logo=redux&logoColor=white)
+![React Router](https://img.shields.io/badge/-React_Router-CA4245?style=flat-square&logo=react-router&logoColor=white)
+![Material UI](https://img.shields.io/badge/-Material_UI-0081CB?style=flat-square&logo=material-ui&logoColor=white)
+![Axios](https://img.shields.io/badge/-Axios-000000?style=flat-square&logo=axios&logoColor=white)
+![Jest](https://img.shields.io/badge/-Jest-C21325?style=flat-square&logo=jest&logoColor=white)
+![React Testing Library](https://img.shields.io/badge/-React_Testing_Library-990000?style=flat-square&logo=react-testing-library&logoColor=white)
+![Styled Components](https://img.shields.io/badge/-Styled_Components-DB7093?style=flat-square&logo=styled-components&logoColor=white)
+
+</div>
 
 ## Features
 
